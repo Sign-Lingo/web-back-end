@@ -9,9 +9,10 @@ const configureRoutes = require("../routes/router");
 const server = express();
 
 server.use(helmet());
-server.use(morgan("dev"));
+server.use(morgan("combined"));
 server.use(express.json());
 server.use(cors());
+
 
 configureRoutes(server);
 

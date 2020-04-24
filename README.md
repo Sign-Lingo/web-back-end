@@ -170,3 +170,9 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 See [Frontend Documentation](🚫link to your frontend readme here) for details on the fronend of our project.
 🚫 Add DS iOS and/or Andriod links here if applicable.
+https://dev-506473.okta.com/oauth2/v1/authorize?idp=0oaaezi5m10RWEjJl4x6&client_id=0oaaf18wlI2z2Xy5X4x6&response_type=id_token&response_mode=fragment&scope=openid%20email&redirect_uri=https://dev-506473.okta.com/oauth2/v1/authorize/callback&state=WM6D&nonce=YsG76jo
+
+Authorize URL	https://dev-506473.okta.com/oauth2/v1/authorize?idp=0oaafizlpuzAWnV9G4x6&client_id=0oaaf18wlI2z2Xy5X4x6&response_type=id_token&response_mode=fragment&scope=openid%20email&redirect_uri=https://dev-506473.okta.com/oauth2/v1/authorize/callback&state=MW8C&nonce=XqH58lp	
+
+Redirect URI	https://dev-506473.okta.com/oauth2/v1/authorize/callback
+

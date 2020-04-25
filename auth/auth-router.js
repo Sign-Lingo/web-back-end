@@ -4,20 +4,20 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken"); // installed this
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 
-/* passport usage
-
-const passport = require('passport');
-
-To protect an individual route
-router.method('/path', passport.authenticate('jwt', {session: false}), (req,res) => ... );
-
-To protect a group of routes
-app.use('/path', passport.authenticate('jwt', {session:false}),require('path/to/route/file'));
-*/
-
 const User = require("../models/auth-model");
 
+const facebook ="https://dev-506473.okta.com/oauth2/v1/authorize?idp=0oaaezi5m10RWEjJl4x6&client_id=0oaaf18wlI2z2Xy5X4x6&response_type=id_token&response_mode=fragment&scope=openid%20email&redirect_uri=https://dev-506473.okta.com/oauth2/v1/authorize/callback&state=WM6D&nonce=YsG76jo"
+const google = "https://dev-506473.okta.com/oauth2/v1/authorize?idp=0oaafizlpuzAWnV9G4x6&client_id=0oaaf18wlI2z2Xy5X4x6&response_type=id_token&response_mode=fragment&scope=openid%20email&redirect_uri=https://dev-506473.okta.com/oauth2/v1/authorize/callback&state=MW8C&nonce=XqH58lp"
+
 // for endpoints beginning with /api/auth
+router.get('/facebook', (req, res)=>{
+  res.status(200).json({facebook});
+});
+
+router.get('/google', (req, res)=>{
+  res.status(200).json({google});
+})
+
 router.post("/register", (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, SALT_ROUNDS); // 2 ^ n

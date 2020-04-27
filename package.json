@@ -6,11 +6,12 @@
   "scripts": {
     "server": "nodemon index.js",
     "start": "index.js",
-    "test": "cross-env DB_ENV=testing jest --watch --verbose"
+    "test": "cross-env DB_ENV=testing jest --watch --verbose",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
     "collectCoverageFrom": [
-      "**/*.{js,jsx}", "**/*.js",
+      "**/*.js",
       "!**/node_modules/**",
       "!**/vendor/**",
       "!**/__tests__/**"

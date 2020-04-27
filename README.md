@@ -2,7 +2,7 @@
 
 # API Documentation
 
-#### Backend delpoyed at [🚫name service here](🚫add URL here) <br>
+#### Backend deployed at [🚫name service here](🚫add URL here) <br>
 
 ### Backend framework goes here
 

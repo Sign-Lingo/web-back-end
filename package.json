@@ -11,8 +11,9 @@
     "type": "git",
     "url": "https://github.com/Lambda-School-Labs/signlingo-be.git"
   },
-  "keywords": [],
+  "keywords": ["ASL", "Signlingo"],
   "author": "David Isakson",
+  "contributors": ["Seth Cox", "David Isakson"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Lambda-School-Labs/signlingo-be.git"

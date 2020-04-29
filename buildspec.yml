@@ -5,16 +5,17 @@ phases:
     nodejs: 12
   build:
     commands:
-      - "npm install"
+      - npm install
   post_build:
     commands:
-      - "echo Build completed on `date`"
+      - echo Build completed on `date`
 artifacts:
   files:
     - index.js
     - package.json
     - knexfile.json
-    - "api/**/*"
-    - "data/**/*"
-    - "middleware/**/*"
-    - "node_modules/**/*"
+    - api/**/*
+    - data/**/*
+    - middleware/**/*
+    - node_modules/**/*
+

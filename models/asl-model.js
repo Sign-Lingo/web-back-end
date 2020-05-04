@@ -15,23 +15,23 @@ module.exports = {
 };
 
 function getAtoE() {
-  return db(tbl).select("id", "letter", "image");
+  return db(AtoEtbl).select("id", "letter", "image");
 }
 
 function getFtoJ() {
-  return db(tbl).select("id", "letter", "image");
+  return db(FtoJtbl).select("id", "letter", "image");
 }
 
 function getKtoO() {
-  return db(tbl).select("id", "letter", "image");
+  return db(KtoOtbl).select("id", "letter", "image");
 }
 
 function getPtoT() {
-  return db(tbl).select("id", "letter", "image");
+  return db(PtoTtbl).select("id", "letter", "image");
 }
 
 function getUtoZ() {
-  return db(tbl).select("id", "letter", "image");
+  return db(UtoZtbl).select("id", "letter", "image");
 }
 // function getBy(filter) {
 //   return db(tbl).where(filter);

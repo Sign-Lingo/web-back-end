@@ -1,4 +1,4 @@
-const db = require("../database/dbConfig.js");
+const db = require("../database/dbconfig.js");
 
 const AtoEtbl = "AtoE"; //define table name
 const FtoJtbl = "FtoJ";

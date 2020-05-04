@@ -7,12 +7,12 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex(tbl).insert([
-        {letter: , image: },
-        {letter: , image: },
-        {letter: , image: },
-        {letter: , image: },
-        {letter: , image: },
-        {letter: , image: }
+        {letter: '', image: letter.},
+        {letter: '', image: letter.},
+        {letter: '', image: letter.},
+        {letter: '', image: letter.},
+        {letter: '', image: letter.},
+        {letter: '', image: letter.}
       ]);
     });
 };

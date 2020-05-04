@@ -33,18 +33,3 @@ function getPtoT() {
 function getUtoZ() {
   return db(UtoZtbl).select("id", "letter", "image");
 }
-// function getBy(filter) {
-//   return db(tbl).where(filter);
-// }
-
-// async function add(user) {
-//   const [id] = await db(tbl).insert(user);
-
-//   return getById(id);
-// }
-
-// function getById(id) {
-//   return db(tbl)
-//     .where({ id })
-//     .first();
-// }

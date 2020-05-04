@@ -1,5 +1,5 @@
-const letter = require('../objects/FtoEobJ.js');
-const tbl = 'FtoJ';
+const letter = require('../objects/FtoJobj');
+tbl = 'FtoJ';
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries

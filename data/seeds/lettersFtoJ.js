@@ -1,5 +1,5 @@
-const letter = require('../objects/FtoEobJ.js');
-const tbl = 'FtoJ';
+const letter = require('../objects/FtoJobj');
+tbl = 'FtoJ';
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
@@ -7,11 +7,11 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex(tbl).insert([
-        {letter: , image: },
-        {letter: , image: },
-        {letter: , image: },
-        {letter: , image: },
-        {letter: , image: }
+        {letter: 'F', image: letter.imageF},
+        {letter: 'G', image: letter.imageG},
+        {letter: 'H', image: letter.imageH},
+        {letter: 'I', image: letter.imageI},
+        {letter: 'J', image: letter.imageJ}
       ]);
     });
 };

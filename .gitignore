@@ -107,4 +107,8 @@ dist/
 tmp/
 temp/
 
+# Sqlite database
+*.db3
+
 # End of https://www.gitignore.io/api/node
+data/data.db3

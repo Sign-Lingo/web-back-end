@@ -21,14 +21,15 @@ router.get("/signs", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
-  const lessonData = req.body;
-
-  Lessons.addUser(lessonData)
-    .then((data) => {
-      res.status(201).json(data);
-    })
-    .catch((error) => {
-      res.status(500).json({ message: "Failed to create new user" });
-    });
-});
+// router.post("/", (req, res) => {
+//  const lessonData = req.body;
+//
+//
+//  Lessons.addUser(lessonData)
+//    .then((data) => {
+//      res.status(201).json(data);
+//   })
+//    .catch((error) => {
+//      res.status(500).json({ message: "Failed to create new user" });
+//    });
+//});

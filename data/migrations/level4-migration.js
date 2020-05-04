@@ -15,11 +15,8 @@ exports.up = function(knex) {
                 .notNullable();
             tbl.boolean("Active")
                 .notNullable();
-            tbl.integer("PtoT_ID")
-                .unsigned()
-                .notNullable()
-                .references("id")
-                .inTable("PtoT");
+            tbl.string("signs")
+                .notNullable();
   })
 };
 

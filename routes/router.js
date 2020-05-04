@@ -10,7 +10,9 @@
 */
 // IMPORTS
 const authRouter = require("../auth/auth-router.js");
-    
+const aslRouter = require("../asl/asl-router.js");
+  
 module.exports = server => {
   server.use("/api/auth", authRouter);
+  server.use("/api/asl", aslRouter);
 };

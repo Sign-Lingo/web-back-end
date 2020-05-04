@@ -1,45 +1,36 @@
-const router = require('express').Router();
+/*
+**Contributors:
+**Seth Cox
+**David Isakson
+**
+**May, 2020
+*/
 
-const Lessons = require('../models/level5-model.js');
+const router = require("express").Router();
 
-router.get('/lesson',  (req, res) => {
-    Lessons.lessons()
-        .then( data => {
-            res.status(200).json(data);
-        })
-        .catch( error => {
-            res.status(500).json({ message: 'Failed to find the data'})
-        })
-})
+const Lessons = require("../models/level5-model.js");
+const asl = require("../models/asl-model");
 
-router.get('/practice',  (req, res) => {
-    Lessons.lessons()
-        .then( data => {
-            res.status(200).json(data);
-        })
-        .catch( error => {
-            res.status(500).json({ message: 'Failed to find the data'})
-        })
-})
 
-router.get('/quiz',  (req, res) => {
-    Lessons.lessons()
-        .then( data => {
-            res.status(200).json(data);
-        })
-        .catch( error => {
-            res.status(500).json({ message: 'Failed to find the data'})
-        })
-})
+router.get("/signs", (req, res) => {
+  asl
+    .getUtoZ()
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Failed to find the data" });
+    });
+});
 
-router.post('/', (req, res) => {
-    const lessonData = req.body;
+router.post("/", (req, res) => {
+  const lessonData = req.body;
 
-        Lessons.addUser(lessonData)
-            .then(data => {
-                res.status(201).json(data);
-            })
-            .catch(error => {
-                res.status(500).json({ message: 'Failed to create new user'})
-        })
-})
+  Lessons.addUser(lessonData)
+    .then((data) => {
+      res.status(201).json(data);
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Failed to create new user" });
+    });
+});

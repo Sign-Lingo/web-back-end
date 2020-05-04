@@ -11,8 +11,18 @@
 // IMPORTS
 const authRouter = require("../auth/auth-router.js");
 const aslRouter = require("../asl/asl-router.js");
-  
+const level1Router = require("../Levels/level1-router.js");
+const level2Router = require("../Levels/level2-router.js");
+const level3Router = require("../Levels/level3-router.js");
+const level4Router = require("../Levels/level4-router.js");
+const level5Router = require("../Levels/level5-router.js");
+    
 module.exports = server => {
   server.use("/api/auth", authRouter);
   server.use("/api/asl", aslRouter);
+  server.use("/api/level_1", level1Router);
+  server.use("/api/level_2", level2Router);
+  server.use("/api/level_3", level3Router);
+  server.use("/api/level_4", level4Router);
+  server.use("/api/level_5", level5Router);
 };

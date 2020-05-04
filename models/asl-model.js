@@ -7,43 +7,43 @@ const PtoTtbl = "PtoT";
 const UtoZtbl = "UtoZ";
 
 module.exports = {
-  findAtoE,
-  findFtoJ,
-  findKtoO,
-  findPtoT,
-  findUtoZ
+  getAtoE,
+  getFtoJ,
+  getKtoO,
+  getPtoT,
+  getUtoZ
 };
 
-function findAtoE() {
+function getAtoE() {
   return db(tbl).select("id", "letter", "image");
 }
 
-function findFtoJ() {
+function getFtoJ() {
   return db(tbl).select("id", "letter", "image");
 }
 
-function findKtoO() {
+function getKtoO() {
   return db(tbl).select("id", "letter", "image");
 }
 
-function findPtoT() {
+function getPtoT() {
   return db(tbl).select("id", "letter", "image");
 }
 
-function findUtoZ() {
+function getUtoZ() {
   return db(tbl).select("id", "letter", "image");
 }
-// function findBy(filter) {
+// function getBy(filter) {
 //   return db(tbl).where(filter);
 // }
 
 // async function add(user) {
 //   const [id] = await db(tbl).insert(user);
 
-//   return findById(id);
+//   return getById(id);
 // }
 
-// function findById(id) {
+// function getById(id) {
 //   return db(tbl)
 //     .where({ id })
 //     .first();

@@ -7,7 +7,7 @@
 */
 const router = require("express").Router();
 
-const Lessons = require("../models/level1-model.js");
+// const Lessons = require("../models/level1-model.js");
 const asl = require("../models/asl-model");
 
 router.get("/signs", (req, res) => {
@@ -37,3 +37,4 @@ router.get("/signs", (req, res) => {
 //    });
 //});
 
+module.exports = router;

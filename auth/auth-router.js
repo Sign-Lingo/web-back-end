@@ -39,7 +39,6 @@ router.post("/register", userValidationRules(), validate, (req, res) => {
   const hash = bcrypt.hashSync(user.password, SALT_ROUNDS); // 2 ^ n
   user.password = hash;
 
-
   User.add(user)
     .then((saved) => {
       res.status(201).json(saved);

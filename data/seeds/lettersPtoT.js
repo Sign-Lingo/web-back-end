@@ -1,4 +1,3 @@
-const letter = require('../objects/PtoTobj.js');
 const tbl = 'PtoT';
 
 exports.seed = function(knex) {
@@ -7,11 +6,11 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex(tbl).insert([
-        {letter: 'P', image: letter.imageP},
-        {letter: 'Q', image: letter.imageQ},
-        {letter: 'R', image: letter.imageR},
-        {letter: 'S', image: letter.imageS},
-        {letter: 'T', image: letter.imageT}
+        {letter: 'P', image: 'https://photos.app.goo.gl/HuMyYCVNkkgWVsjh7'},
+        {letter: 'Q', image: 'https://photos.app.goo.gl/ktDLN6LPjZbQGUAM6'},
+        {letter: 'R', image: 'https://photos.app.goo.gl/pDF1ZAwWSWw2p1DV7'},
+        {letter: 'S', image: 'https://photos.app.goo.gl/4A51wrnTQKwdiLiZ9'},
+        {letter: 'T', image: 'https://photos.app.goo.gl/i6EY6fcYxBRoP1Ug6'}
       ]);
     });
 };

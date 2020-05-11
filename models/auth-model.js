@@ -29,9 +29,9 @@ function findBy(filter) {
 }
 
 async function add(user) {
-  const [id] = await db(tblUsers).insert(user);
+  const user = await db(tblUsers).insert(user).returning("*");
 
-  return findById(id);
+  return user;
 }
 
 function findById(id) {

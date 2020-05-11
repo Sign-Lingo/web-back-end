@@ -30,7 +30,6 @@ function findBy(filter) {
 
 async function add(user) {
   const users = await db(tblUsers).insert(user).returning("*");
-
   return users;
 }
 

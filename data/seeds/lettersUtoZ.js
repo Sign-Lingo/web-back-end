@@ -1,3 +1,9 @@
+/*
+**Contributors:
+**Seth Cox
+**David Isakson
+**April - May 2020
+*/
 const tbl = 'UtoZ';
 
 exports.seed = function(knex) {

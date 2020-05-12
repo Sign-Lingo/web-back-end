@@ -1,4 +1,9 @@
-
+/*
+**Contributors:
+**Seth Cox
+**David Isakson
+**April - May 2020
+*/
 exports.up = function(knex) {
   knex.schema.alterTable('PtoT', tbl =>{
     tbl.increments();

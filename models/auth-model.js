@@ -9,6 +9,13 @@
 ** Contact: david.isakson.ii@gmail.com
 */
 
+/*
+**Contributors:
+**Seth Cox
+**David Isakson
+**April - May 2020
+*/
+
 const db = require('../data/dbconfig');
 
 const tblUsers = 'users';//define the users table name
@@ -20,17 +27,17 @@ module.exports = {
   findById,
 };
 
-function find() {
+function find() {//Gets a list of all users
   return db(tblUsers).select('id', 'email');
 }
 
-function findBy(filter) {
+function findBy(filter) {//finds a user by a given field value
   return db(tblUsers).where(filter);
 }
 
 async function add(user) {
   const users = await db(tblUsers).insert(user).returning("*");
-  return users;
+  return users.email;//returns only the email of the newly created user
 }
 
 function findById(id) {

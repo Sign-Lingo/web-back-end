@@ -1,4 +1,10 @@
-tbl = 'FtoJ';
+/*
+**Contributors:
+**Seth Cox
+**David Isakson
+**April - May 2020
+*/
+const tbl = 'FtoJ';
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries

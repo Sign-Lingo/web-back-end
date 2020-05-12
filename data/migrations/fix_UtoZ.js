@@ -1,6 +1,11 @@
-
+/*
+**Contributors:
+**Seth Cox
+**David Isakson
+**April - May 2020
+*/
 exports.up = function(knex) {
-  knex.schema.alterTable('AtoE', tbl =>{
+  knex.schema.alterTable('UtoZ', tbl =>{
     tbl.increments();
 
   	tbl
@@ -15,5 +20,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists("AtoE");
+  return knex.schema.dropTableIfExists("UtoZ");
 };

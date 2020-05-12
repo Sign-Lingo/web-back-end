@@ -1,3 +1,9 @@
+/*
+This file is the master list of all the links to the ASL signs
+for the alphabet. They are stored in google photos using the 
+Singlingo gmail account.
+*/
+
 A=https://photos.app.goo.gl/ZzZryfR1ygX6eFv37
 B=https://photos.app.goo.gl/D1xX1qX5jqrJiMiS9
 C=https://photos.app.goo.gl/2TXNXcHyJJ1za7AXA

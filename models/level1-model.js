@@ -25,10 +25,10 @@ function addUser(User_ID) {
     return db('Level_1')
       .insert({
         User_ID: User_ID,
-        Lesson: 'False',
-        Practice: 'False',
-        Quiz: 'False',
-        Active: 'True',
+        Lesson: false,
+        Practice: false,
+        Quiz: false,
+        Active: false,
         signs: 'A to E'
       }).returning("*");
 }
@@ -39,6 +39,6 @@ function lessons() {
 
 function findById(id) {
     return db('Level_1')
-        .where({ id })
-        .first();
+        .where({ User_ID: id })
+        // .first();
 }

@@ -8,7 +8,8 @@ const level5 = require('../models/level5-model');
 const levels = (req, res, next) => {
     let user_id = level1.findById(req)
     // console.log(req);
-    console.log(user_id);
+    console.log(res.data);
+    
     if (!user_id) {
         level1.addUser(req);
         level2.addUser(req);

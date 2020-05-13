@@ -39,6 +39,6 @@ function lessons() {
 
 function findById(id) {
     return db('Level_1')
-        .where({ User_ID: id });
+        .where({ User_ID: id })
         // .first();
 }

@@ -19,4 +19,15 @@ router.put("/level_1", (req, res) => {
     });
 });
 
+router.get('/lvl1', (req, res){
+  Level1
+    .getAll()
+    .then(data =>{
+      res.status(200).json(data);
+    })
+    .catch(err => {
+      res.status(404).json({msg: "Table is empty"});
+    });
+});
+
 module.exports = router;

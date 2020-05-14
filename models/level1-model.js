@@ -42,3 +42,7 @@ function findById(id) {
         .where({ User_ID: id })
         // .first();
 }
+
+function getAll (){
+  return db('Level_1').select('*');
+}

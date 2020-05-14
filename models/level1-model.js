@@ -10,7 +10,8 @@ const db = require('../data/dbconfig');
 module.exports = {
     addUser,
     lessons,
-    findById
+    findById,
+    getAll
 }
 
 /*

@@ -19,7 +19,7 @@ router.put("/level_1", (req, res) => {
     });
 });
 
-router.get('/lvl1', (req, res){
+router.get('/lvl1', (req, res)=>{
   Level1
     .getAll()
     .then(data =>{

@@ -41,10 +41,10 @@ router.post("/register", userValidationRules(), validate, (req, res) => {
 
   User.add(user)
     .then((saved) => {
-
+      console.log('saved', saved);
       // Disclaimer - Theres is a probably a better way to handle this with knex, but chose to go down the JS route
       const promises = []; // The promise array that we will use to link to levels with user.id
-      
+
       // push all promises into promises array
       // If you want to create another level this is where you add it
       promises.push(level1.addUser(saved.id));
@@ -56,14 +56,17 @@ router.post("/register", userValidationRules(), validate, (req, res) => {
       Promise.all(promises)
         .then((result) => {
           // send the results of the resolved promise on success
+          console.log('returnUser', returnUser);
           res.status(201).json(returnUser);
         })
         .catch((newError) => {
-          res.status(500).json(newError);
+          console.log('newError', newError);
+          res.status(500).json({newError: newError});
         })
     })
     .catch((error) => {
-      res.status(500).json(error);
+      console.log('error', error);
+      res.status(500).json({error: error});
     });
 });
 

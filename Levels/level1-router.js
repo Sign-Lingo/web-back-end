@@ -8,7 +8,7 @@ const router = require("express").Router();
 
 const level1 = require("../models/level1-model");
 
-router.post("/level_1", (req, res) => {
+router.put("/level_1", (req, res) => {
   level1
     .addUser()
     .then((data) => {

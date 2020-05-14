@@ -35,13 +35,17 @@ function findBy(filter) {//finds a user by a given field value
   return db(tblUsers).where(filter);
 }
 
-async function add(user) {
-  //Use this line of code for posgres 
-   const users = await db(tblUsers).insert(user).returning("*");
+function add(user) {
+
+  return db(tblUsers)
+  .insert(user)
+  .then(([id]) => findById(id));
+  //Use this line of code for posgres
+   //const users = await db(tblUsers).insert(user).returning("*");
   //Use this line of code for sqlite3
   // const users = await db(tblUsers).insert(user);
-  
-  return users;//returns only the email of the newly created user
+
+  //return users;//returns only the email of the newly created user
 }
 
 function findById(id) {

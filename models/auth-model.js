@@ -38,8 +38,7 @@ function findBy(filter) {//finds a user by a given field value
 function add(user) {
 
   return db(tblUsers)
-  .insert(user)
-  .then(([id]) => findById(id));
+  .insert(user).returning("*").then(([id]) => findById(id));
   //Use this line of code for posgres
    //const users = await db(tblUsers).insert(user).returning("*");
   //Use this line of code for sqlite3

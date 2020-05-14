@@ -98,16 +98,6 @@ router.post("/login", userValidationRules(), validate, (req, res) => {
     });
 });
 
-router.get("/find/:id", (req, res) => {
-  level1.findById(req.params.id)
-    .then( user => {
-      console.log(user)
-    })
-    .catch( err => {
-      console.log(err)
-    })
-})
-
 // this functions creates and signs the token
 function signToken(user) {
   const payload = {

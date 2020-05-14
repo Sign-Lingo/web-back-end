@@ -6,11 +6,11 @@
 */
 const router = require("express").Router();
 
-const asl = require("../models/asl-model");
+const level1 = require("../models/level1-model");
 
-router.get("/signs", (req, res) => {
-  asl
-    .getAtoE()
+router.put("/level_1", (req, res) => {
+  level1
+    .addUser()
     .then((data) => {
       res.status(200).json(data);
     })

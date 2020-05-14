@@ -24,10 +24,10 @@ module.exports = {
 function addUser(User_ID) {
     return db('Level_4').insert({
       User_ID: User_ID,
-      Lesson: 'False',
-      Practice: 'False',
-      Quiz: 'False',
-      Active: 'True',
+      Lesson: false,
+      Practice: false,
+      Quiz: false,
+      Active: false,
       signs: 'P to T'
     }).returning("*");
 }

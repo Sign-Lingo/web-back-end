@@ -88,8 +88,8 @@ router.post("/login", userValidationRules(), validate, (req, res) => {
 
         // send the token
         res.status(200).json({
-          token, // added token as part of the response sent
-          message: `Welcome User ${user.email}!`,
+          token: token, // added token as part of the response sent
+          email: user.email
         });
       } else {
         res.status(401).json({ message: "Invalid Credentials" });

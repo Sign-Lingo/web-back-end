@@ -18,6 +18,6 @@ describe("SERVER ", () => {
   });
 
   it("should set db ENV to testing", function() {
-    expect(process.env.DB_ENV).toBe("development");
+    expect(process.env.DB_ENV).toBe("testing");
   });
 });

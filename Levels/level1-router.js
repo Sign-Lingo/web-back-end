@@ -8,11 +8,11 @@ const router = require("express").Router();
 
 const level1 = require("../models/level1-model");
 
-router.get("/info/:id", (req, res) => {
+router.get(`/info/${User_ID}`, (req, res) => {
   console.log(req.body, "first response")
-  User_ID = req.body.id
+
   level1
-    .getUser(User_ID)
+    .getUser(req)
       .then(data => {
         console.log(data)
         res.status(200).json(data)

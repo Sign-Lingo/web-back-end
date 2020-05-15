@@ -35,17 +35,12 @@ function findBy(filter) {//finds a user by a given field value
   return db(tblUsers).where(filter);
 }
 
-function add(user) {
+async function add(user) {
+  //.returning("*") is for postgres and will throw a warning for sqlite3
+  //but does not hinder the operation of sqlite3
+   const users = await db(tblUsers).insert(user).returning("*");
 
-  return db(tblUsers)
-  .insert(user)
-  .then(([id]) => findById(id));
-  //Use this line of code for posgres
-   //const users = await db(tblUsers).insert(user).returning("*");
-  //Use this line of code for sqlite3
-  // const users = await db(tblUsers).insert(user);
-
-  //return users;//returns only the email of the newly created user
+  return users;//returns user Object
 }
 
 function findById(id) {

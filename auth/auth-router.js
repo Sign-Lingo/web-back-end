@@ -44,7 +44,7 @@ router.post("/register", userValidationRules(), validate, (req, res) => {
       console.log('saved', saved);
       //console.log('saved.id', saved.id);
       console.log('user', user);
-      const id  = saved.id;
+      let id  = saved.id;
       console.log('id',id);
       // Disclaimer - Theres is a probably a better way to handle this with knex, but chose to go down the JS route
       const promises = []; // The promise array that we will use to link to levels with user.id

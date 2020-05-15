@@ -23,9 +23,9 @@ module.exports = {
 **current level.
 */
 function addUser(User_ID) {
+  console.log("User_ID", User_ID);
     return db('Level_1')
       .insert({
-        id:1000,
         User_ID: User_ID,
         Lesson: false,
         Practice: false,

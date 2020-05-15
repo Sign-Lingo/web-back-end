@@ -48,14 +48,13 @@ router.post("/register", userValidationRules(), validate, (req, res) => {
 
       // push all promises into promises array
       // If you want to create another level this is where you add it
-      // promises.push(level1.addUser(saved.id));
-      // promises.push(level2.addUser(saved.id));
-      // promises.push(level3.addUser(saved.id));
-      // promises.push(level4.addUser(saved.id));
-      // promises.push(level5.addUser(saved.id));
+      promises.push(level1.addUser(54));
+      promises.push(level2.addUser(54));
+      promises.push(level3.addUser(54));
+      promises.push(level4.addUser(54));
+      promises.push(level5.addUser(54));
       //resolve all the promises with .all
-      level1.addUser(saved.id)
-      //Promise.all(promises)
+      Promise.all(promises)
         .then((result) => {
           // send the results of the resolved promise on success
           console.log('returnUser', returnUser);

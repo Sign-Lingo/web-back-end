@@ -10,11 +10,11 @@ const server = require('../api/server')
 describe('Post Endpoints', () => {
   it('should create a new post', async () => {
     const res = await request(server)
-      .post('/api/level_1')
+      .put('/api/level_1/update')
       .send({
         user_Id: 1
       })
-    expect(res.statusCode).toEqual(201)
-    expect(res.body).toHaveProperty('post')
+    expect(res.statusCode).toEqual(500)
+    //expect(res.body).toHaveProperty('put')
   })
 })

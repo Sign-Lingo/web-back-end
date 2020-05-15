@@ -8,26 +8,26 @@ const router = require("express").Router();
 
 const level1 = require("../models/level1-model");
 
-router.put("/level_1", (req, res) => {
+router.put("/", (req, res) => {
+  console.log(req.body);
   level1
-    .addUser()
-    .then((data) => {
-      res.status(200).json(data);
+    .findById(req.params.User_ID)
+    .then(data => {
+      if (data) {
+        level1.update(req.body, req.params.User_ID)
+          .then(data => {
+            res.status(201).json(data);
+          })
+          .catch(error => {
+            res.status(500).json(error);
+          })
+      } else {
+      res.status(404).json(data, "could not find the user");
+    }
     })
     .catch((error) => {
-      res.status(500).json({ message: "Failed to find the data" });
-    });
-});
-
-router.get('/lvl1', (req, res)=>{
-  Level1
-    .getAll()
-    .then(data =>{
-      res.status(200).json(data);
+      res.status(500).json({error,  message: "Failed to update the data" });
     })
-    .catch(err => {
-      res.status(404).json({msg: "Table is empty"});
-    });
 });
 
 module.exports = router;

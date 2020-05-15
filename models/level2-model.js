@@ -10,7 +10,8 @@ const db = require('../data/dbconfig');
 module.exports = {
     addUser,
     lessons,
-    findById
+    findById,
+    update
 }
 
 /*
@@ -41,3 +42,12 @@ function findById(id) {
         .where({ id })
         .first();
 }
+
+function update(changes, id) {
+    return db('Level_2')
+        .where({ User_ID: User_ID })
+        .update(changes)
+        .then(() => {
+            return findById(id)
+        })
+};

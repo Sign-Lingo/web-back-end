@@ -8,7 +8,21 @@ const router = require("express").Router();
 
 const level1 = require("../models/level1-model");
 
-router.put("/", (req, res) => {
+router.get("/info/:id", (req, res) => {
+  console.log(req.body, "first response")
+  User_ID = req.body.id
+  level1
+    .getUser(User_ID)
+      .then(data => {
+        console.log(data)
+        res.status(200).json(data)
+      })
+      .catch(error => {
+        res.status(404).json("Infomation not found : ", error)
+      })
+})
+
+router.put("/update", (req, res) => {
   console.log(req.body);
   level1
     .findById(req.params.User_ID)

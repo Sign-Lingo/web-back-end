@@ -20,7 +20,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken"); // installed this
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 const { userValidationRules, validate } = require("../middleware/validation");
-const levels = require("../middleware/level-validation");
 
 const User = require("../models/auth-model");
 const level1 = require('../models/level1-model');

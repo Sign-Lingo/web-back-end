@@ -11,7 +11,8 @@ module.exports = {
     addUser,
     lessons,
     findById,
-    update
+    update,
+    getUser
 }
 
 /*
@@ -43,11 +44,15 @@ function findById(id) {
         .first();
 }
 
+function getUser (id) {
+    return db('Level_5').where({User_ID: id}).select("*")
+}
+
 function update(changes, id) {
     return db('Level_5')
-        .where({ User_ID: User_ID })
+        .where({ User_ID: id })
         .update(changes)
         .then(() => {
-            return findById(id)
+            return getUser(id)
         })
 };

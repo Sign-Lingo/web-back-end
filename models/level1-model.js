@@ -50,15 +50,15 @@ function getAll (){
   return db('Level_1').select('*');
 }
 
-function getUser (User_ID) {
-    return db('Level_1').where(User_ID).select('*')
+function getUser (id) {
+    return db('Level_1').where({User_ID: id}).select("*")
 }
 
 function update(changes, id) {
     return db('Level_1')
-        .where({ User_ID: User_ID })
+        .where({ User_ID: id })
         .update(changes)
         .then(() => {
-            return findById(id)
+            return getUser(id)
         })
 };

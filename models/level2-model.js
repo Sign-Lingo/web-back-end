@@ -26,6 +26,7 @@ module.exports = {
 function addUser(User_ID) {
     return db('Level_2').insert({
       User_ID: User_ID,
+      Level: 2,
       Lesson: false,
       Practice: false,
       Quiz: false,

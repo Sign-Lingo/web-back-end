@@ -56,8 +56,7 @@ router.post("/register", userValidationRules(), validate, (req, res) => {
       Promise.all(promises)
         .then((result) => {
           // send the results of the resolved promise on success
-          console.log('user', result[0][0].User_ID);
-          //res.status(201).json(returnUser);
+          //Include User_ID with object
           res.status(201).json({id:result[0][0].User_ID ,email:returnUser.email , token:returnUser.token});
         })
         .catch((newError) => {
@@ -89,9 +88,9 @@ router.post("/login", userValidationRules(), validate, (req, res) => {
 
         // send the token
         res.status(200).json({
-          token: token, // added token as part of the response sent
+          id: user.id,
           email: user.email,
-          id: user.id
+          token: token // added token as part of the response sent
         });
       } else {
         res.status(401).json({ message: "Invalid Credentials" });

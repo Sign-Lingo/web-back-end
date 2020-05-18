@@ -51,7 +51,7 @@ function getAll (){
 }
 
 function getUser (id) {
-    return db('Level_1').where({User_ID: id}).select("*")
+    return db('Level_1').where({User_ID: id}).select("*").first();
 }
 
 function update(changes, id) {

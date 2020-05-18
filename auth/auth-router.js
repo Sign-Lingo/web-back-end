@@ -56,8 +56,9 @@ router.post("/register", userValidationRules(), validate, (req, res) => {
       Promise.all(promises)
         .then((result) => {
           // send the results of the resolved promise on success
-          console.log('user', result);
+          console.log('user', result[0]);
           res.status(201).json(returnUser);
+          //res.status(201).json({id:result[0].User_ID ,email:returnUser.email , token:returnUser.token});
         })
         .catch((newError) => {
           console.log('newError', newError);

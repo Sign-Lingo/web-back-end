@@ -31,7 +31,7 @@ function addUser(User_ID) {
         Lesson: false,
         Practice: false,
         Quiz: false,
-        Active: false,
+        Active: true,
         signs: 'A to E'
       }).returning("*");
 }

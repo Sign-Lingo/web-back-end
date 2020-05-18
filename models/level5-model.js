@@ -45,7 +45,7 @@ function findById(id) {
 }
 
 function getUser (id) {
-    return db('Level_5').where({User_ID: id}).select("*")
+    return db('Level_5').where({User_ID: id}).select("*").first();
 }
 
 function update(changes, id) {

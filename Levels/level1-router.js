@@ -10,6 +10,7 @@ const level1 = require("../models/level1-model");
 
 router.get("/info/:id", (req, res) => {
   console.log(req.body, "first response")
+
   const id = req.params.id
   level1
     .getUser(id)

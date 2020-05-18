@@ -28,6 +28,7 @@ function addUser(User_ID) {
     return db('Level_1')
       .insert({
         User_ID: User_ID,
+        Level: 1,
         Lesson: false,
         Practice: false,
         Quiz: false,

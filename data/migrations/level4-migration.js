@@ -13,6 +13,8 @@ exports.up = function(knex) {
                 .notNullable()
                 .references("id")
                 .inTable("users");
+            tbl.integer("Level")
+                .notNullable();
             tbl.boolean("Lesson")
                 .notNullable();
             tbl.boolean("Practice")

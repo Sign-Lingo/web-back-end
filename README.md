@@ -15,84 +15,80 @@
 
 | Method | Endpoint                | Access Control | Description                                  |
 | ------ | ----------------------- | -------------- | -------------------------------------------- |
-| GET    | `` | all users      | Returns the information for an organization. |
-| PUT    | `` | owners         | Modify an existing organization.             |
-| DELETE | `` | owners         | Delete an organization.                      |
+| GET    | `/api/level_1/info/:id` | all users      | Returns the information for a user. |
+| PUT    | `/api/level_1/update/:id` | owners         | Modify an existing user.             |                      |
 
 #### User Routes
 
 | Method | Endpoint                | Access Control      | Description                                        |
 | ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/api/auth/facebook`        | none           | Returns the redirect URL to login in using facebook               |
-| GET    | `/api/auth/google`    | none | Returns the redirect URL to login using google             |
 | POST    | `/api/auth/register`        | none | Creates a new user account using jwt                    |
 | POST   | `/api/auth/login` | none                | Verifies user identity an logs user in. |
 |                                                    |
 
 # Data Model
 
-🚫This is just an example. Replace this with your data model
 
-#### 2️⃣ ORGANIZATIONS
+#### 2️⃣ USER
 
 ---
 
 ```
 {
   id: UUID
-  name: STRING
-  industry: STRING
-  paid: BOOLEAN
-  customer_id: STRING
-  subscription_id: STRING
+  email: STRING
+  passowrd: STRING
 }
 ```
 
-#### USERS
+#### 2️⃣ Users Levels 
 
 ---
 
 ```
 {
-  id: UUID
-  organization_id: UUID foreign key in ORGANIZATIONS table
-  first_name: STRING
-  last_name: STRING
-  role: STRING [ 'owner', 'supervisor', 'employee' ]
-  email: STRING
-  phone: STRING
-  cal_visit: BOOLEAN
-  emp_visit: BOOLEAN
-  emailpref: BOOLEAN
-  phonepref: BOOLEAN
+    "id": "integer",
+    "User_ID": "integer foreign key in USER table",
+    "Level": "integer,
+    "Lesson": "boolean",
+    "Practice": "boolean",
+    "Quiz": "boolean",
+    "Active": "boolean",
+    "signs": "string"
 }
 ```
 
 ## 2️⃣ Actions
 
-🚫 This is an example, replace this with the actions that pertain to your backend
+Auth Models
 
-`getOrgs()` -> Returns all organizations
+`add(user)` -> Adds user to the users table
 
-`getOrg(orgId)` -> Returns a single organization by ID
+`findBy(filter)` -> Returns a user based on filter (email)
 
-`addOrg(org)` -> Returns the created org
+ASL Models
 
-`updateOrg(orgId)` -> Update an organization by ID
+`getAtoE()` -> Returns the ASL images and letters for A to E
 
-`deleteOrg(orgId)` -> Delete an organization by ID
+`getFtoJ()` -> Returns the ASL images and letters for F to J
+
+`getKtoO()` -> Returns the ASL images and letters for K to O
+
+`getPtoT()` -> Returns the ASL images and letters for P to T
+
+`getUtoZ()` -> Returns the ASL images and letters for U to Z
+
+Levels Models
+
+`addUser(User_ID)` -> Adds user to all levels tables
+
+`getUser(id)` -> Returns a single users information for specific levels
+
+`update(changes, id)` -> Updates the users progress in the level modules
+
 <br>
 <br>
 <br>
-`getUsers(orgId)` -> if no param all users
-
-`getUser(userId)` -> Returns a single user by user ID
-
-`addUser(user object)` --> Creates a new user and returns that user. Also creates 7 availabilities defaulted to hours of operation for their organization.
-
-`updateUser(userId, changes object)` -> Updates a single user by ID.
-
-`deleteUser(userId)` -> deletes everything dependent on the user
 
 ## Environment Variables
 

@@ -138,5 +138,5 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Frontend Documentation](🚫link to your frontend readme here) for details on the fronend of our project.
+See [Frontend Documentation](https://github.com/Lambda-School-Labs/signlingo-fe/blob/master/README.md) for details on the fronend of our project.
 

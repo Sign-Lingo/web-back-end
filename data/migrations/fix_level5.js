@@ -7,7 +7,7 @@ exports.up = function(knex) {
                 .references("id")
                 .inTable("users");
             tbl.integer('Level')
-                .notNullable().atler();
+                .notNullable().alter();
             tbl.boolean("Lesson")
                 .notNullable();
             tbl.boolean("Practice")

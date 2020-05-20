@@ -26,7 +26,7 @@ const configureRoutes = require("../routes/router");
 
 const server = express();
 
-server.use(helmet());
+server.use(helmet.noSniff());//Disables CORB from blocking images
 server.use(morgan("combined"));
 server.use(express.json());
 server.use(cors());

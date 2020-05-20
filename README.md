@@ -2,21 +2,38 @@
 
 # API Documentation
 
-#### Backend deployed at [Heroku](https://signlingobe-stag.herokuapp.com/) <br>
+#### Backend deployed at [Heroku](https://signlingo-staging.herokuapp.com/) <br>
 
 ### Backend framework goes here
 
 -    Express and Knex: These frameworks compliment each other well and make the management of the database schema simple.
--    jwt: While this framework is not the most secure of method for it will serve as a fallback in case the Okta server is down. Additionally a plan is in the works to try and secure users information from being compromised should the backend data be breached.
--    Okta: Okta is a third party identity provider that uses openId and Oauth 2.0. It also supports external identity providers such as Facebook and Google and allows authentication with these services without the need to use additional frameworks or write extensive code. The backend simply provides and endpoint that returns a URL that will redirect the User to the afore mentioned services. All of the heavy work is processed through Okta.
+-    jwt: While not the most secure method for handling identity, attempts to implement third party authentication have not been successful through out the development of the Backend. So for RC1 jwt is the only method for registering and authentication.
 
 
 #### Organization Routes
 
 | Method | Endpoint                | Access Control | Description                                  |
 | ------ | ----------------------- | -------------- | -------------------------------------------- |
+| ---    | #Level 1--------------- | ---------      | -------------------------------------------- |
 | GET    | `/api/level_1/info/:id` | all users      | Returns the information for a user. |
-| PUT    | `/api/level_1/update/:id` | owners         | Modify an existing user.             |                      |
+| GET    | `/api/asl/AtoE` | all users      | Returns the letters with ASL sign image for AtoE |
+| PUT    | `/api/level_1/update/:id` | owners         | Modify an existing user.             |
+| ---    | #Level 2--------------- | ---------      | -------------------------------------------- |
+| GET    | `/api/level_2/info/:id` | all users      | Returns the information for a user. |
+| GET    | `/api/asl/FtoJ` | all users      | Returns the letters with ASL sign image for FtoJ |
+| PUT    | `/api/level_2/update/:id` | owners         | Modify an existing user.             |
+| ---    | #Level 3--------------- | ---------      | -------------------------------------------- |
+| GET    | `/api/level_3/info/:id` | all users      | Returns the information for a user. |
+| GET    | `/api/asl/KtoO` | all users      | Returns the letters with ASL sign image for KtoO |
+| PUT    | `/api/level_3/update/:id` | owners         | Modify an existing user.             |
+| ---    | #Level 4--------------- | ---------      | -------------------------------------------- |
+| GET    | `/api/level_4/info/:id` | all users      | Returns the information for a user. |
+| GET    | `/api/aslPtoT` | all users      | Returns the letters with ASL sign image for PtoT |
+| PUT    | `/api/level_4/update/:id` | owners         | Modify an existing user.             |
+| ---    | #Level 5--------------- | ---------      | -------------------------------------------- |
+| GET    | `/api/level_5/info/:id` | all users      | Returns the information for a user. |
+| GET    | `/api/asl/UtoZ` | all users      | Returns the letters with ASL sign image for UtoZ |
+| PUT    | `/api/level_5/update/:id` | owners         | Modify an existing user.             |
 
 #### User Routes
 
@@ -41,7 +58,7 @@
 }
 ```
 
-#### 2️⃣ Users Levels 
+#### 2️⃣ Users Levels
 
 ---
 
@@ -95,11 +112,11 @@ Levels Models
 DB_ENV = development
 
 JWT_SECRET
-    
+
 PORT = 3300 //Local port can be set to anything
 
-SALT_ROUNDS 
-    
+SALT_ROUNDS
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -139,4 +156,3 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 ## Documentation
 
 See [Frontend Documentation](https://github.com/Lambda-School-Labs/signlingo-fe/blob/master/README.md) for details on the fronend of our project.
-

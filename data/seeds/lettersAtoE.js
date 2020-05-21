@@ -17,6 +17,6 @@ exports.seed = function(knex) {
         {letter: 'C', image: 'https://i.postimg.cc/TwMDsYn8/the-letter-c-displayed-in-american-sign-language.jpg'},
         {letter: 'D', image: 'https://i.postimg.cc/fRPXxvLR/the-letter-d-displayed-in-american-sign-language.jpg'},
         {letter: 'E', image: 'https://i.postimg.cc/63rvxJh8/the-letter-e-displayed-in-american-sign-language.jpg'}
-      ]);
+      ]); 
     });
 };

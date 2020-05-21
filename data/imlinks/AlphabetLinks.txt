@@ -1,7 +1,7 @@
 /*
 This file is the master list of all the links to the ASL signs
-for the alphabet. They are stored in google photos using the
-Singlingo gmail account.
+for the alphabet. They are stored in postimage.org account using
+signlingo gmail.
 */
 
 https://i.postimg.cc/8CfWd09K/A-big.png

@@ -2,108 +2,121 @@
 
 # API Documentation
 
-#### Backend deployed at [Heroku](https://signlingobe-stag.herokuapp.com/) <br>
+#### Backend deployed at [Heroku](https://signlingo-staging.herokuapp.com/) <br>
 
 ### Backend framework goes here
 
 -    Express and Knex: These frameworks compliment each other well and make the management of the database schema simple.
--    jwt: While this framework is not the most secure of method for it will serve as a fallback in case the Okta server is down. Additionally a plan is in the works to try and secure users information from being compromised should the backend data be breached.
--    Okta: Okta is a third party identity provider that uses openId and Oauth 2.0. It also supports external identity providers such as Facebook and Google and allows authentication with these services without the need to use additional frameworks or write extensive code. The backend simply provides and endpoint that returns a URL that will redirect the User to the afore mentioned services. All of the heavy work is processed through Okta.
+-    jwt: While not the most secure method for handling identity, attempts to implement third party authentication have not been successful through out the development of the Backend. So for RC1 jwt is the only method for registering and authentication.
 
 
 #### Organization Routes
 
 | Method | Endpoint                | Access Control | Description                                  |
 | ------ | ----------------------- | -------------- | -------------------------------------------- |
-| GET    | `` | all users      | Returns the information for an organization. |
-| PUT    | `` | owners         | Modify an existing organization.             |
-| DELETE | `` | owners         | Delete an organization.                      |
+| ---    | #Level 1--------------- | ---------      | -------------------------------------------- |
+| GET    | `/api/level_1/info/:id` | all users      | Returns the information for a user. |
+| GET    | `/api/asl/AtoE` | all users      | Returns the letters with ASL sign image for AtoE |
+| PUT    | `/api/level_1/update/:id` | owners         | Modify an existing user.             |
+| ---    | #Level 2--------------- | ---------      | -------------------------------------------- |
+| GET    | `/api/level_2/info/:id` | all users      | Returns the information for a user. |
+| GET    | `/api/asl/FtoJ` | all users      | Returns the letters with ASL sign image for FtoJ |
+| PUT    | `/api/level_2/update/:id` | owners         | Modify an existing user.             |
+| ---    | #Level 3--------------- | ---------      | -------------------------------------------- |
+| GET    | `/api/level_3/info/:id` | all users      | Returns the information for a user. |
+| GET    | `/api/asl/KtoO` | all users      | Returns the letters with ASL sign image for KtoO |
+| PUT    | `/api/level_3/update/:id` | owners         | Modify an existing user.             |
+| ---    | #Level 4--------------- | ---------      | -------------------------------------------- |
+| GET    | `/api/level_4/info/:id` | all users      | Returns the information for a user. |
+| GET    | `/api/aslPtoT` | all users      | Returns the letters with ASL sign image for PtoT |
+| PUT    | `/api/level_4/update/:id` | owners         | Modify an existing user.             |
+| ---    | #Level 5--------------- | ---------      | -------------------------------------------- |
+| GET    | `/api/level_5/info/:id` | all users      | Returns the information for a user. |
+| GET    | `/api/asl/UtoZ` | all users      | Returns the letters with ASL sign image for UtoZ |
+| PUT    | `/api/level_5/update/:id` | owners         | Modify an existing user.             |
 
 #### User Routes
 
 | Method | Endpoint                | Access Control      | Description                                        |
 | ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/api/auth/facebook`        | none           | Returns the redirect URL to login in using facebook               |
-| GET    | `/api/auth/google`    | none | Returns the redirect URL to login using google             |
 | POST    | `/api/auth/register`        | none | Creates a new user account using jwt                    |
 | POST   | `/api/auth/login` | none                | Verifies user identity an logs user in. |
 |                                                    |
 
 # Data Model
 
-🚫This is just an example. Replace this with your data model
 
-#### 2️⃣ ORGANIZATIONS
+#### 2️⃣ USER
 
 ---
 
 ```
 {
   id: UUID
-  name: STRING
-  industry: STRING
-  paid: BOOLEAN
-  customer_id: STRING
-  subscription_id: STRING
+  email: STRING
+  passowrd: STRING
 }
 ```
 
-#### USERS
+#### 2️⃣ Users Levels
 
 ---
 
 ```
 {
-  id: UUID
-  organization_id: UUID foreign key in ORGANIZATIONS table
-  first_name: STRING
-  last_name: STRING
-  role: STRING [ 'owner', 'supervisor', 'employee' ]
-  email: STRING
-  phone: STRING
-  cal_visit: BOOLEAN
-  emp_visit: BOOLEAN
-  emailpref: BOOLEAN
-  phonepref: BOOLEAN
+    "id": "integer",
+    "User_ID": "integer foreign key in USER table",
+    "Level": "integer,
+    "Lesson": "boolean",
+    "Practice": "boolean",
+    "Quiz": "boolean",
+    "Active": "boolean",
+    "signs": "string"
 }
 ```
 
 ## 2️⃣ Actions
 
-🚫 This is an example, replace this with the actions that pertain to your backend
+Auth Models
 
-`getOrgs()` -> Returns all organizations
+`add(user)` -> Adds user to the users table
 
-`getOrg(orgId)` -> Returns a single organization by ID
+`findBy(filter)` -> Returns a user based on filter (email)
 
-`addOrg(org)` -> Returns the created org
+ASL Models
 
-`updateOrg(orgId)` -> Update an organization by ID
+`getAtoE()` -> Returns the ASL images and letters for A to E
 
-`deleteOrg(orgId)` -> Delete an organization by ID
+`getFtoJ()` -> Returns the ASL images and letters for F to J
+
+`getKtoO()` -> Returns the ASL images and letters for K to O
+
+`getPtoT()` -> Returns the ASL images and letters for P to T
+
+`getUtoZ()` -> Returns the ASL images and letters for U to Z
+
+Levels Models
+
+`addUser(User_ID)` -> Adds user to all levels tables
+
+`getUser(id)` -> Returns a single users information for specific levels
+
+`update(changes, id)` -> Updates the users progress in the level modules
+
 <br>
 <br>
 <br>
-`getUsers(orgId)` -> if no param all users
-
-`getUser(userId)` -> Returns a single user by user ID
-
-`addUser(user object)` --> Creates a new user and returns that user. Also creates 7 availabilities defaulted to hours of operation for their organization.
-
-`updateUser(userId, changes object)` -> Updates a single user by ID.
-
-`deleteUser(userId)` -> deletes everything dependent on the user
 
 ## Environment Variables
 
 DB_ENV = development
 
 JWT_SECRET
-    
+
 PORT = 3300 //Local port can be set to anything
 
-SALT_ROUNDS 
-    
+SALT_ROUNDS
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -142,5 +155,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Frontend Documentation](🚫link to your frontend readme here) for details on the fronend of our project.
-
+See [Frontend Documentation](https://github.com/Lambda-School-Labs/signlingo-fe/blob/master/README.md) for details on the fronend of our project.

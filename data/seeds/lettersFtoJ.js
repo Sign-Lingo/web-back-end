@@ -12,11 +12,11 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex(tbl).insert([
-        {letter: 'F', image: 'https://photos.app.goo.gl/DVvK8azSuTbndkwT6'},
-        {letter: 'G', image: 'https://photos.app.goo.gl/L63w2KkE7Ki52xt98'},
-        {letter: 'H', image: 'https://photos.app.goo.gl/xiDRUvhZD4UnTzZu6'},
-        {letter: 'I', image: 'https://photos.app.goo.gl/Eu3G2vS9eH8nTdYh6'},
-        {letter: 'J', image: 'https://photos.app.goo.gl/LUu23JqsMmqVzP8y5'}
+        {letter: 'F', image: 'https://i.postimg.cc/1XHxXMKM/F-big.png'},
+        {letter: 'G', image: 'https://i.postimg.cc/2jFN08fv/G-big.png'},
+        {letter: 'H', image: 'https://i.postimg.cc/P5NGfWvz/H-big.png'},
+        {letter: 'I', image: 'https://i.postimg.cc/5N4dTdxr/I-big.png'},
+        {letter: 'J', image: 'https://i.postimg.cc/nc3btRrh/J-big.png'}
       ]);
     });
 };

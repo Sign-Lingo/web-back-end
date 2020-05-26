@@ -9,7 +9,6 @@ const router = require("express").Router();
 const level2 = require("../models/level2-model");
 
 router.get("/info/:id", (req, res) => {
-  console.log(req.body, "first response")
   const id = req.params.id
   level2
     .getUser(id)

@@ -35,6 +35,10 @@ function addUser(User_ID) {
     }).returning("*");
 }
 
+function lessons() {
+    return db('KtoO');
+}
+
 function findById(id) {
     return db('Level_3')
         .where({ id })

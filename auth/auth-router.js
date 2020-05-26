@@ -60,7 +60,6 @@ router.post("/register", userValidationRules(), validate, (req, res) => {
           res.status(201).json({id:result[0][0].User_ID ,email:returnUser.email , token:returnUser.token});
         })
         .catch((newError) => {
-          console.log('newError', newError);
           res.status(500).json({newError: newError});
         })
     })
@@ -77,7 +76,6 @@ router.post("/login", userValidationRules(), validate, (req, res) => {
 
     .first()
     .then((user) => {
-      console.log(user)
         let user_id = level1.findById(user.id);
         // console.log(user_id)
 

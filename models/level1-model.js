@@ -37,10 +37,6 @@ function addUser(User_ID) {
       }).returning("*");
 }
 
-function lessons() {
-    return db('AtoE');
-}
-
 function findById(id) {
     return db('Level_1')
         .where({ id })

@@ -14,18 +14,24 @@ describe("POST /register", () => {
     beforeEach(async () => {
       await db("users").truncate();
     });
+  })
 
-    it("validates", async () => {
+
+describe("Post /register", () => {
+
+    it("Returns user, token upon registering", async () => {
       const res = await request(server)
         .post("/api/auth/register")
         .send({
           email: "email777@email.com",
-          password: "password"
-        });
-      expect(res.status).toBe(500);
+          password: "password",
+        })
+        // expect(res.status).toEqual(201);
+        // expect(res.body.token).not.toBe(undefined);
+        expect(res.type).toMatch(/json/i)
     });
   });
-});
+})
 
 describe("POST /login", () => {
   describe("log in user", () => {
@@ -43,8 +49,8 @@ describe("POST /login", () => {
       const res = await request(server)
         .post("/api/auth/login")
         .send({
-          username: "email@email.com",
-          password: "password"
+          "username": "email@email.com",
+          "password": "password"
         });
       expect(res.type).toMatch(/json/i);
     });

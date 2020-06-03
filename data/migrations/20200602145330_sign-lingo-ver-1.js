@@ -36,7 +36,12 @@ exports.up = function (knex) {
       tbl.increments();
       tbl.string("sign").unique();
       tbl.string("visual").unique();
-      tbl.integer("level_id").references("id").inTable("levels").notNullable();
+      tbl.integer("level_id")
+        .references("id")
+        .inTable("levels")
+        .notNullable()
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
     })
     .createTable("exercises", (tbl) => {
       tbl.increments();
@@ -48,8 +53,9 @@ exports.up = function (knex) {
         .unsigned()
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      tbl.string("prompt");
-      tbl.string("visual");
+      tbl.string("question");
+      tbl.string("answer");
+      tbl.string("options");
       tbl.string("option1");
       tbl.string("option2");
       tbl.string("option3");
@@ -65,3 +71,4 @@ exports.down = function (knex) {
     .dropTableIfExists("levels")
     .dropTableIfExists("users");
 };
+         

@@ -1,23 +1,39 @@
+const bodyParser = require("body-parser");
+const { ExpressOIDC } = require("@okta/oidc-middleware");
+const session = require("express-session");
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const morgan = require(`morgan`);
-
 const userRouter = require("../routes/userRouter"); // use until okta is set up
 const levelsRouter = require("../routes/levelsRouter");
-
 const server = express();
-
-server.use(helmet.noSniff()); // Disables CORB from blocking images
+const { OKTA_DOMAIN, CLIENT_ID, CLIENT_SECRET, APP_BASE_URL, APP_SECRET } = process.env;
+const oidc = new ExpressOIDC({
+  issuer: `${OKTA_DOMAIN}/oauth2/default`,
+  client_id: CLIENT_ID,
+  client_secret: CLIENT_SECRET,
+  appBaseUrl: APP_BASE_URL,
+  scope: 'openid profile',
+  post_logout_redirect_uri: 'http://localhost:5000/logout/callback',
+});
+server.use(session({
+  secret: APP_SECRET,
+  resave: true,
+  saveUninitialized: false,
+}));
+server.use(helmet.noSniff()); // Disables CORS from blocking images
 server.use(morgan("combined"));
 server.use(express.json());
 server.use(cors());
-
+server.use(oidc.router);
+server.use(bodyParser.json());
 server.use("/user", userRouter);
-server.use("/levels", levelsRouter);
-
+server.use("/levels", oidc.ensureAuthenticated(), levelsRouter);
 server.get("/", (req, res) => {
   res.send("The Server is working ");
 });
-
+server.get('/logout', oidc.forceLogoutAndRevoke(), (req, res) => {
+  // This is never called because forceLogoutAndRevoke always redirects.
+});
 module.exports = server;

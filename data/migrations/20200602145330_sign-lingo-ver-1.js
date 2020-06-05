@@ -2,12 +2,11 @@ exports.up = function (knex) {
   return knex.schema
     .createTable("users", (tbl) => {
       tbl.increments();
-      tbl.string("username").unique().notNullable().index();
-      tbl.string("okta_uid").unique().notNullable();
+      tbl.string("okta_uid").unique().notNullable().index();
     })
     .createTable("levels", (tbl) => {
       tbl.increments();
-      tbl.string("name");
+      tbl.string("name").index();
     })
     .createTable("user_levels", (tbl) => {
       tbl.increments();

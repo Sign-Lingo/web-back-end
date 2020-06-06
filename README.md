@@ -4,17 +4,17 @@
 
 #### Backend deployed at [Heroku](https://signlingo-staging.herokuapp.com/) <br>
 
-### Endpoints
+Type **yarn install** to download all deps<br>
+Type **yarn run server** to continously run dev env server
+
+# Endpoints
 
 Add endpoints here
 
-# Data 
+# Data Responses
 
 Add response body examples of data here
 
-<br>
-<br>
-<br>
 
 ## Environment Variables
 

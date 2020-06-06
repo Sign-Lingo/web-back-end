@@ -35,7 +35,7 @@ server.use(bodyParser.json());
 
 // routes
 server.use("/user", authRouter);
-server.use("/levels", oidc.ensureAuthenticated(), levelsRouter);
+server.use("/levels", levelsRouter); // add OKTA middleware --> oidc.ensureAuthenticated(),
 
 server.get("/", (req, res) => {
   res.send("IT'S WORKING!!!");

@@ -5,7 +5,7 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const morgan = require(`morgan`);
-const userRouter = require("../routes/userRouter"); // use until okta is set up
+const authRouter = require("../routes/authRouter"); // use until okta is set up
 const levelsRouter = require("../routes/levelsRouter");
 const server = express();
 const { OKTA_DOMAIN, CLIENT_ID, CLIENT_SECRET, APP_BASE_URL, APP_SECRET } = process.env;
@@ -34,7 +34,7 @@ server.use(oidc.router);
 server.use(bodyParser.json());
 
 // routes
-server.use("/user", userRouter);
+server.use("/user", authRouter);
 server.use("/levels", oidc.ensureAuthenticated(), levelsRouter);
 
 server.get("/", (req, res) => {

@@ -12,7 +12,6 @@ exports.up = function (knex) {
     })
     .createTable("user_levels", (tbl) => {
       tbl.increments();
-      tbl.timestamp("completed_on").defaultTo(null);
       tbl.timestamp("completed_flashcards").defaultTo(null);
       tbl.timestamp("completed_exercises").defaultTo(null);
       tbl.timestamp("completed_quiz").defaultTo(null);

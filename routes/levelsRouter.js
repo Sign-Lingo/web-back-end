@@ -12,8 +12,8 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/check", (req, res) => {
-  Levels.checkUserLevels()
+router.get("/check/:userId", (req, res) => {
+  Levels.checkUserLevels(req.params.userId)
     .then((userLevels) => {
       res.status(200).json(userLevels);
     })
@@ -21,5 +21,16 @@ router.get("/check", (req, res) => {
       res.status(500).json("Error getting user levels!", error);
     });
 });
+
+router.post("/:userId", (req, res) => {
+  let levelId = req.body;
+  Levels.addUserLevel(req.params.userId, levelId)
+    .then(addedUserLevel => {
+      res.status(200).json(addedUserLevel);
+    })
+    .catch(error => {
+      res.status(500).json("Error adding level to user account!", error)
+    })
+})
 
 module.exports = router;

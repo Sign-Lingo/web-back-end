@@ -15,50 +15,33 @@ exports.up = function (knex) {
       tbl.timestamp("completed_exercises").defaultTo(null);
       tbl.timestamp("completed_quiz").defaultTo(null);
       tbl
-      .integer("user_id")
-      .references("id")
-      .inTable("users")
-      .notNullable()
-      .unsigned()
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
-    tbl
-      .integer("level_id")
-      .references("id")
-      .inTable("levels")
-      .notNullable()
-      .unsigned()
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
+        .integer("user_id")
+        .references("id")
+        .inTable("users")
+        .notNullable()
+        .unsigned()
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+      tbl
+        .integer("level_id")
+        .references("id")
+        .inTable("levels")
+        .notNullable()
+        .unsigned()
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
     })
     .createTable("flashcards", (tbl) => {
       tbl.increments();
       tbl.string("sign").unique();
       tbl.string("visual").unique();
-      tbl.integer("level_id")
+      tbl
+        .integer("level_id")
         .references("id")
         .inTable("levels")
         .notNullable()
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-    })
-    .createTable("exercises", (tbl) => {
-      tbl.increments();
-      tbl
-        .integer("flashcard_id")
-        .references("id")
-        .inTable("flashcards")
-        .notNullable()
-        .unsigned()
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
-      tbl.string("question");
-      tbl.string("answer");
-      tbl.string("options");
-      tbl.string("option1");
-      tbl.string("option2");
-      tbl.string("option3");
-      tbl.string("option4");
     });
 };
 
@@ -70,4 +53,3 @@ exports.down = function (knex) {
     .dropTableIfExists("levels")
     .dropTableIfExists("users");
 };
-         

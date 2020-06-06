@@ -9,6 +9,7 @@ const userRouter = require("../routes/userRouter"); // use until okta is set up
 const levelsRouter = require("../routes/levelsRouter");
 const server = express();
 const { OKTA_DOMAIN, CLIENT_ID, CLIENT_SECRET, APP_BASE_URL, APP_SECRET } = process.env;
+
 const oidc = new ExpressOIDC({
   issuer: `${OKTA_DOMAIN}/oauth2/default`,
   client_id: CLIENT_ID,
@@ -17,23 +18,31 @@ const oidc = new ExpressOIDC({
   scope: 'openid profile',
   post_logout_redirect_uri: 'http://localhost:5000/logout/callback',
 });
+
 server.use(session({
   secret: APP_SECRET,
   resave: true,
   saveUninitialized: false,
 }));
+
+// main middleware
 server.use(helmet.noSniff()); // Disables CORS from blocking images
 server.use(morgan("combined"));
 server.use(express.json());
 server.use(cors());
 server.use(oidc.router);
 server.use(bodyParser.json());
+
+// routes
 server.use("/user", userRouter);
 server.use("/levels", oidc.ensureAuthenticated(), levelsRouter);
+
 server.get("/", (req, res) => {
   res.send("The Server is working ");
 });
+
 server.get('/logout', oidc.forceLogoutAndRevoke(), (req, res) => {
   // This is never called because forceLogoutAndRevoke always redirects.
 });
+
 module.exports = server;

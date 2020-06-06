@@ -38,7 +38,7 @@ server.use("/user", authRouter);
 server.use("/levels", oidc.ensureAuthenticated(), levelsRouter);
 
 server.get("/", (req, res) => {
-  res.send("The Server is working ");
+  res.send("IT'S WORKING!!!");
 });
 
 server.get('/logout', oidc.forceLogoutAndRevoke(), (req, res) => {

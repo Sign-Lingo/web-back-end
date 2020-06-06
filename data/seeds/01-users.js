@@ -3,7 +3,9 @@ exports.seed = function (knex) {
     return knex("users").insert([
       {
         id: 1,
-        okta_uid: "okta",
+        email: "test",
+        password: "testpassword",
+        // okta_uid: "okta", // to be added later
       },
     ]);
   });

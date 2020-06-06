@@ -18,11 +18,11 @@ Add response body examples of data here
 
 ## Environment Variables
 
-OKTA_DOMAIN
-CLIENT_ID
-CLIENT_SECRET
-APP_BASE_URL
-APP_SECRET
+OKTA_DOMAIN<br>
+CLIENT_ID<br>
+CLIENT_SECRET<br>
+APP_BASE_URL<br>
+APP_SECRET<br>
 
 ## Contributing
 

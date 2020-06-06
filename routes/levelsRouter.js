@@ -12,6 +12,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// get user_levels table data for one user
 router.get("/check/:userId", (req, res) => {
   Levels.checkUserLevels(req.params.userId)
     .then((userLevels) => {
@@ -22,6 +23,7 @@ router.get("/check/:userId", (req, res) => {
     });
 });
 
+// post one new level (by level ID) for one user (by user ID)
 router.post("/:userId", (req, res) => {
   let levelId = req.body;
   Levels.addUserLevel(req.params.userId, levelId)

@@ -4,7 +4,7 @@ module.exports = {
   getAllLevels() {
     return db("levels");
   },
-  checkUserLevels(userId) {
+  getUserLevelsByID(userId) {
     return db("user_levels")
       .where("user_id", userId)
       .select("*");
@@ -15,5 +15,5 @@ module.exports = {
         user_id: userId,
         level_id: levelId,
       })
-  }
+  },
 };

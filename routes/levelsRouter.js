@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 
 // get user_levels table data for one user
 router.get("/check/:userId", (req, res) => {
-  Levels.checkUserLevels(req.params.userId)
+  Levels.getUserLevelsByID(req.params.userId)
     .then((userLevels) => {
       res.status(200).json(userLevels);
     })

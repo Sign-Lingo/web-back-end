@@ -25,7 +25,8 @@ router.get("/check/:userId", (req, res) => {
 
 // post one new level (by level ID) for one user (by user ID)
 router.post("/:userId", (req, res) => {
-  let levelId = req.body;
+  let levelId = req.body.level_id;
+  console.log("LEVELID HERE!!!!!", levelId)
   Levels.addUserLevel(req.params.userId, levelId)
     .then(addedUserLevel => {
       res.status(200).json(addedUserLevel);

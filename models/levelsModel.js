@@ -9,11 +9,13 @@ module.exports = {
       .where("user_id", userId)
       .select("*");
   },
-  addUserLevel(userId, levelId) {
-    return db("user_levels")
-      .insert({
+  addUserLevel(userId, levels) {
+    for (let i = 0; i < levels.length; i++) {
+      db("user_levels").insert({
         user_id: userId,
-        level_id: levelId,
-      })
+        level_id: levels[i],
+      });
+    };
+    return getUserLevelsByID(userId);
   },
 };

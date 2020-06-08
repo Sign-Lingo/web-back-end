@@ -23,17 +23,16 @@ router.get("/check/:userId", (req, res) => {
     });
 });
 
-// post one new level (by level ID) for one user (by user ID)
+// post new levels for a user
 router.post("/:userId", (req, res) => {
-  let levelId = req.body.level_id;
-  console.log("LEVELID HERE!!!!!", levelId)
-  Levels.addUserLevel(req.params.userId, levelId)
-    .then(addedUserLevel => {
-      res.status(200).json(addedUserLevel);
+  let levels = req.body.levels; // array of level ids so levels can be added [6,7,8...etc]
+  Levels.addUserLevel(req.params.userId, levels)
+    .then((addedUserLevel) => {
+      res.status(200).json(addedUserLevel); // returns all user_levels by userID
     })
-    .catch(error => {
-      res.status(500).json("Error adding level to user account!", error)
-    })
-})
+    .catch((error) => {
+      res.status(500).json("Error adding levels to user account!", error);
+    });
+});
 
 module.exports = router;

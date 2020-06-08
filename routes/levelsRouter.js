@@ -26,9 +26,16 @@ router.get("/check/:userId", (req, res) => {
 // post new levels for a user
 router.post("/:userId", (req, res) => {
   let levels = req.body.levels; // array of level ids so levels can be added [6,7,8...etc]
+  console.log("LEVELS **************", levels);
   Levels.addUserLevel(req.params.userId, levels)
     .then((addedUserLevel) => {
-      res.status(200).json(addedUserLevel); // returns all user_levels by userID
+      Levels.getUserLevelsByID(req.params.userId)
+        .then((userLevels) => {
+          res.status(200).json(userLevels);
+        })
+        .catch((error) => {
+          res.status(500).json("Error getting user levels!", error);
+        });
     })
     .catch((error) => {
       res.status(500).json("Error adding levels to user account!", error);

@@ -1,23 +1,36 @@
 const db = require("../data/dbconfig");
 
 module.exports = {
-  addUser(newUser) {
-    return db("users").insert(newUser, "*");
-    // return db.transaction((trx) => {
-    //   return db("users")
-    //     .transacting(trx)
-    //     .insert(newUser)
-    //     .then((res) => {
-    //       return db("user-levels")
-    //         .transacting(trx)
-    //         .insert({ user_id: userId, level_id: res[0] })
-    //         .returning("*");
-    //     })
-    //     .then(trx.commit)
-    //     .catch(trx.rollback);
-    // });
+  addUser(oktaUID) {
+    // return db("users").insert({okta_uid: oktaUID});
+    return db.transaction((trx) => {
+      return db("users")
+        .transacting(trx)
+        .insert({ okta_uid: oktaUID })
+        .then((res) => {
+          return db("levels")
+            .transacting(trx)
+            .then((res) => {
+              console.log("*******", res);
+              let promises = [];
+              for (let i = 0; i < res.length; i++) {
+                promises.push(
+                  db("user_levels")
+                    .transacting(trx)
+                    .insert({ okta_uid: oktaUID, level_id: res[i].id })
+                );
+              }
+              return Promise.all(promises);
+            });
+        })
+        .then(trx.commit)
+        .catch(trx.rollback);
+    });
   },
   findByEmail(email) {
     return db("users").where(email);
+  },
+  findByOktaUID(okta_uid) {
+    return db("users").where("okta_uid", "=", okta_uid);
   },
 };

@@ -14,11 +14,11 @@ module.exports = (req, res, next) => {
   if (authorization) {
     const secret = process.env.JWT_SECRET;
 
-    jwt.verify(authorization, secret, function(err, decodedToken) {
       if (err) {
         res.status(401).json({ message: "Invalid Token" });
       } else {
         req.token = decodedToken;
+  User.findByUID(req.body)
 
         next();
       }

@@ -1,92 +1,56 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+// const bcrypt = require("bcryptjs");
+// const jwt = require("jsonwebtoken");
 const router = require("express").Router();
-const { jwtSecret } = require("../config/secret");
+// const { jwtSecret } = require("../config/secret");
+const OktaJwtVerifier = require("@okta/jwt-verifier");
 const User = require("../models/authModel");
+const ISSUER = process.env.ISSUER;
 
-function generateToken(user) {
-  const payload = {
-    id: user.id,
-    email: user.email,
-  };
-  const options = {
-    expiresIn: "7d",
-  };
-  return jwt.sign(payload, jwtSecret, options);
-}
+const oktaJwtVerifier = new OktaJwtVerifier({
+  issuer: ISSUER,
+});
 
-// ROUTES TO REGISTER AND LOGIN
-router.post("/register", (req, res, next) => {
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(req.body.password, salt);
-  const password = hash;
-  const email = req.body.email;
-  User.addUser({ ...req.body, password: password })
-    .then(() => {
-      User.findByEmail({ email })
-        .first()
-        .then((user) => {
-          if (user && password === user.password) {
-            const token = generateToken(user);
-            res.status(200).json({
-              message: `Welcome, ${user.email}.`,
-              id: user.id,
-              email: user.email,
-              token,
-            });
-          } else if (user && bcrypt.compareSync(password, user.password)) {
-            const token = generateToken(user);
-            res.status(200).json({
-              message: `Welcome, ${user.email}.`,
-              id: user.id,
-              email: user.email,
-              token,
-            });
-          } else {
-            res.status(401).json({ message: "Invalid credentials." });
-          }
+
+router.post("/signup", (req, res) => {
+
+  oktaJwtVerifier.verifyAccessToken(req.body.accessToken.accessToken, 'api://default')
+  .then(decodedToken => {
+    console.log(decodedToken.claims.uid)
+    User.findByOktaUID(decodedToken.claims.uid)
+      .then(foundit => {
+        console.log("$$$$$$$$$$$$$", foundit)
+        if (foundit.length === 0) {
+          User.addUser(decodedToken.claims.uid)
+            .then(addedUser => {
+              res.status(201).json({
+                newUser: addedUser,
+                addedThem: "We added a user!",
+              })
+            })
+        } else {
+          res.status(200).json({
+            foundUser: true,
+            userFound: "Found the user already in users table",
+            foundit       
+          })
+        }
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: err.message,
+          error2: "could not find okta uid",
+          uid: decodedToken.claims.uid
         })
-        .catch((error) => {
-          res.status(500).send(error);
-        });
-    })
-    .catch((error) => {
-      res.status(500).json({
-        errorMessage: error.message,
-        error: "Could not add the user to sign lingo.",
-        error,
       });
-    });
-});
-
-router.post("/login", (req, res) => {
-  let { email, password } = req.body;
-  User.findByEmail({ email })
-    .first()
-    .then((user) => {
-      if (user && password === user.password) {
-        const token = generateToken(user);
-        res.status(200).json({
-          message: `Welcome, ${user.email}.`,
-          id: user.id,
-          email: user.email,
-          token,
-        });
-      } else if (user && bcrypt.compareSync(password, user.password)) {
-        const token = generateToken(user);
-        res.status(200).json({
-          message: `Welcome, ${user.email}.`,
-          id: user.id,
-          email: user.email,
-          token,
-        });
-      } else {
-        res.status(401).json({ message: "Invalid credentials." });
-      }
+  })
+  .catch(err => {
+    // a validation failed, inspect the error
+    res.status(500).json({
+      message: `Json verify didn't work`,
+      err: err.message
     })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
+  });
+})
+
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const db = require("../data/dbconfig");
 
 module.exports = {
-getUserLevelsByID,
+  getUserLevelsByOktaUID,
 getAllLevels,
 addUserLevel,
 };
@@ -10,10 +10,9 @@ function getAllLevels() {
   return db("levels");
 }
 
-function getUserLevelsByID(userId) {
+function getUserLevelsByOktaUID(oktaUID) {
   return db("user_levels")
-    .where("user_id", userId)
-    .select("*");
+    .where("okta_uid", oktaUID)
 }
 
 function addUserLevel(userId, levels) {

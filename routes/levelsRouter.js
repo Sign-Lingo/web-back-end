@@ -13,8 +13,8 @@ router.get("/", (req, res) => {
 });
 
 // get user_levels table data for one user
-router.get("/check/:userId", (req, res) => {
-  Levels.getUserLevelsByID(req.params.userId)
+router.get("/check/:oktaUID", (req, res) => {
+  Levels.getUserLevelsByOktaUID(req.params.oktaUID)
     .then((userLevels) => {
       res.status(200).json(userLevels);
     })

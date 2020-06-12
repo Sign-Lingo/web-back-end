@@ -137,9 +137,50 @@ POST | /:oktaUID | array of level id's to add, okta_uid in params | N/A | Adds m
     }
 ]
 ```
-- **/levels/:oktaUID** POST missing levels to user account -> Successful response body example
+- **/levels/:oktaUID** POST missing levels to user account (assuming these levels are new to database) -> Successful response body example
 ```
-returns an array of user_level entry indexes added.
+[
+    {
+        "id": 24,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 1,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 25,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 2,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 26,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 3,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 27,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 4,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 28,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 5,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+]
 ```
 
 ## Credits

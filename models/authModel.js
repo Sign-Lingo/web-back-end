@@ -2,7 +2,6 @@ const db = require("../data/dbconfig");
 
 module.exports = {
   addUser(oktaUID) {
-    // return db("users").insert({okta_uid: oktaUID});
     return db.transaction((trx) => {
       return db("users")
         .transacting(trx)
@@ -11,7 +10,6 @@ module.exports = {
           return db("levels")
             .transacting(trx)
             .then((res) => {
-              console.log("*******", res);
               let promises = [];
               for (let i = 0; i < res.length; i++) {
                 promises.push(
@@ -26,9 +24,6 @@ module.exports = {
         .then(trx.commit)
         .catch(trx.rollback);
     });
-  },
-  findByEmail(email) {
-    return db("users").where(email);
   },
   findByOktaUID(okta_uid) {
     return db("users").where("okta_uid", "=", okta_uid);

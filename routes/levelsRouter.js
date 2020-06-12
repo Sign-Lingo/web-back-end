@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Levels = require("../models/levelsModel");
 
-// get all levels
+// get all levels in the database, includes the level id and name fields.
 router.get("/", (req, res) => {
   Levels.getAllLevels()
     .then((levels) => {
@@ -12,8 +12,8 @@ router.get("/", (req, res) => {
     });
 });
 
-// get user_levels table data for one user
-router.get("/check/:oktaUID", (req, res) => {
+// get user_levels table data for one user by their okta_uid
+router.get("/:oktaUID", (req, res) => {
   Levels.getUserLevelsByOktaUID(req.params.oktaUID)
     .then((userLevels) => {
       res.status(200).json(userLevels);
@@ -23,13 +23,14 @@ router.get("/check/:oktaUID", (req, res) => {
     });
 });
 
-// post new levels for a user
-router.post("/:userId", (req, res) => {
+// This end point will only be used if a user logs in and the front end client notices
+// that the user is missing levels that have been added since they logged in last time.
+// this endpoint will add the missing levels to the user.
+router.post("/:oktaUID", (req, res) => {
   let levels = req.body.levels; // array of level ids so levels can be added [6,7,8...etc]
-  console.log("LEVELS **************", levels);
-  Levels.addUserLevel(req.params.userId, levels)
+  Levels.addUserLevel(req.params.oktaUID, levels)
     .then((addedUserLevel) => {
-      Levels.getUserLevelsByID(req.params.userId)
+      Levels.getUserLevelsByOktaUID(req.params.oktaUID)
         .then((userLevels) => {
           res.status(200).json(userLevels);
         })

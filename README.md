@@ -10,10 +10,10 @@
 
 ## <a name='overview'></a>Overview
 This database allows users to login, register, and participate in american sign language flashcard lessons, exercises, and quizzes. Currently the only levels available are for the alphabet. <br>
-Type **yarn install** to download all deps<br>
-Type **nodemon index.js** to continously run dev env server (you will need to have nodemon installed globally -> "**npm install -g nodemon**"), we were having problems running nodemon locally<br>
-Back end is deployed to production (even thought it says staging in the name) at [Heroku](https://signlingo-staging.herokuapp.com/) <br>
-Data Base Schema is here: [DB SCHEMA](https://dbdesigner.page.link/iEg1SoCNyGXD7KEt6)<br>
+- Type **yarn install** to download all deps<br>
+- Type **nodemon index.js** to continously run dev env server (you will need to have nodemon installed globally -> "**npm install -g nodemon**"), we were having problems running nodemon locally<br>
+- Back end is deployed to production (even thought it says staging in the name) at [Heroku](https://signlingo-staging.herokuapp.com/) <br>
+- Data Base Schema is here: [DB SCHEMA](https://dbdesigner.page.link/iEg1SoCNyGXD7KEt6)<br>
 
 ## API Endpoints
 

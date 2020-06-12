@@ -62,7 +62,7 @@ Method | Endpoint | Body/Params (required) | Body (optional) | Notes
 | ----- | ----------------- | -------------------- | --------------------- | ------------------ |
 GET | /levels | N/A | N/A | Returns all the levels in the database. |
 GET | /:oktaUID | okta_uid in params | N/A | Returns all user_level table data for a particular user via okta_uid passed as param. |
-POST | /:oktaUID | array of level id's to add, okta_uid in params | N/A | Adds missing levels to user account informed by levels ids inside levels array, and the okta_uid passed as params |
+POST | /:oktaUID | array of level id's to add, okta_uid in params | N/A | Adds missing levels to user account informed by levels ids inside levels array, and the okta_uid passed as params, this endpoint will only be reached if an old user logs in and is missing newly added levels in database |
 
 ### Levels Request and Response Body Examples
 
@@ -139,7 +139,7 @@ POST | /:oktaUID | array of level id's to add, okta_uid in params | N/A | Adds m
 ```
 - **/levels/:oktaUID** POST missing levels to user account -> Successful response body example
 ```
-response body goes here... tbd
+returns an array of user_level entry indexes added.
 ```
 
 ## Credits

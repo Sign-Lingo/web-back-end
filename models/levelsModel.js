@@ -19,4 +19,28 @@ module.exports = {
     }
     return Promise.all(promises);
   },
+  completeFlashcard(levelID, oktaUID) {
+    return db("user_levels").where({
+      level_id: levelID,
+      okta_uid:  oktaUID
+    }).update({
+      completed_flashcards: Date.now(),
+    })
+  },
+  completeExercise(levelID, oktaUID) {
+    return db("user_levels").where({
+      level_id: levelID,
+      okta_uid:  oktaUID
+    }).update({
+      completed_exercises: Date.now(),
+    })
+  },
+  completeQuiz(levelID, oktaUID) {
+    return db("user_levels").where({
+      level_id: levelID,
+      okta_uid:  oktaUID
+    }).update({
+      completed_quiz: Date.now(),
+    })
+  },
 };

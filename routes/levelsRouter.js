@@ -43,4 +43,35 @@ router.post("/:oktaUID", (req, res) => {
     });
 });
 
+router.put("/flashcard/:levelID", (req, res) => {
+  Levels.completeFlashcard(req.params.levelID, req.body.oktaUID)
+  .then(completedFlashcard => {
+    res.status(200).json(completedFlashcard)
+  })
+  .catch(error => {
+    res.status(500).json("Error updating flashcard to completed timestamp status", error)
+  })
+})
+
+router.put("/exercise/:levelID", (req, res) => {
+  Levels.completeExercise(req.params.levelID, req.body.oktaUID)
+  .then(completedExercise => {
+    res.status(200).json(completedExercise)
+  })
+  .catch(error => {
+    res.status(500).json("Error updating exercise to completed timestamp status", error)
+  })
+})
+
+router.put("/quiz/:levelID", (req, res) => {
+  Levels.completeQuiz(req.params.levelID, req.body.oktaUID)
+  .then(completedQuiz => {
+    res.status(200).json(completedQuiz)
+  })
+  .catch(error => {
+    res.status(500).json("Error updating quiz to completed timestamp status", error)
+  })
+})
+
+
 module.exports = router;

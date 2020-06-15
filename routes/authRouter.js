@@ -16,7 +16,6 @@ router.post("/signup", (req, res) => {
   oktaJwtVerifier
     .verifyAccessToken(req.body.accessToken.accessToken, "api://default")
     .then((decodedToken) => {
-      console.log(decodedToken.claims.uid);
       User.findByOktaUID(decodedToken.claims.uid)
         .then((foundit) => {
           if (foundit.length === 0) {

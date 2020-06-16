@@ -1,4 +1,4 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/9b3d0af20438824ee812/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/signlingo-be/maintainability)  [![Test Coverage](https://api.codeclimate.com/v1/badges/9b3d0af20438824ee812/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/signlingo-be/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9b3d0af20438824ee812/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/signlingo-be/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/9b3d0af20438824ee812/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/signlingo-be/test_coverage)
 
 # Sign Lingo
 
@@ -9,7 +9,9 @@
 - **[Credits](#credits)**<br>
 
 ## <a name='overview'></a>Overview
+
 This database allows users to login, register, and participate in american sign language flashcard lessons, exercises, and quizzes. Currently the only levels available are for the alphabet. <br>
+
 - Type **yarn install** to download all deps<br>
 - Type **nodemon index.js** to continously run dev env server (you will need to have nodemon installed globally -> "**npm install -g nodemon**"), we were having problems running nodemon locally<br>
 - Back end is deployed to production (even thought it says staging in the name) at [Heroku](https://signlingo-staging.herokuapp.com/) <br>
@@ -18,13 +20,15 @@ This database allows users to login, register, and participate in american sign 
 ## API Endpoints
 
 ### Authentication
-Method | Endpoint | Body/Params (required) | Body (optional) | Notes
-| ----- | ----------------- | -------------------- | --------------------- | ------------------ |
-POST | /user/signup | okta access token | N/A | Finds user in database via okta_uid, or adds them to the database and initializes their levels. Returns the users okta_uid |
+
+| Method | Endpoint     | Body/Params (required) | Body (optional) | Notes                                                                                                                      |
+| ------ | ------------ | ---------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| POST   | /user/signup | okta access token      | N/A             | Finds user in database via okta_uid, or adds them to the database and initializes their levels. Returns the users okta_uid |
 
 ### Authentication Request and Response Body Examples
 
-- **/user/signup** POST user -> request body example (okta access token)
+- **/user/signup** --- POST user request body example (okta access token)
+
 ```
 {
     "accessToken": {
@@ -42,7 +46,9 @@ POST | /user/signup | okta access token | N/A | Finds user in database via okta_
     }
 }
 ```
-- **/user/signup** POST user -> successful LOGIN response example
+
+- **/user/signup** --- POST user successful LOGIN response example
+
 ```
 {
     "foundUser": true,
@@ -58,15 +64,20 @@ POST | /user/signup | okta access token | N/A | Finds user in database via okta_
 ```
 
 ### Levels
-Method | Endpoint | Body/Params (required) | Body (optional) | Notes
-| ----- | ----------------- | -------------------- | --------------------- | ------------------ |
-GET | /levels | N/A | N/A | Returns all the levels in the database. |
-GET | /:oktaUID | okta_uid in params | N/A | Returns all user_level table data for a particular user via okta_uid passed as param. |
-POST | /:oktaUID | array of level id's to add, okta_uid in params | N/A | Adds missing levels to user account informed by levels ids inside levels array, and the okta_uid passed as params, this endpoint will only be reached if an old user logs in and is missing newly added levels in database |
+
+| Method | Endpoint  | Body/Params (required)                         | Body (optional) | Notes                                                                                                                                                                                                                      |
+| ------ | --------- | ---------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET    | levels/   | N/A                                            | N/A             | Returns all the levels in the database.                                                                                                                                                                                    |
+| GET    | levels/:oktaUID | okta_uid in params                             | N/A             | Returns all user_level table data for a particular user via okta_uid passed as param.                                                                                                                                      |
+| POST   | levels/:oktaUID | array of level id's to add, okta_uid in params | N/A             | Adds missing levels to user account informed by levels ids inside levels array, and the okta_uid passed as params, this endpoint will only be reached if an old user logs in and is missing newly added levels in database |
+| PUT    | levels/flashcard/:levelID   | level_id in params, and okta_uid in req.body      | N/A        | Edits "completed_flashcards" field in the user_levels entry as specified by level_id and okta_uid                                                                                                                                                                                 |
+| PUT    | levels/exercise/:levelID | level_id in params, and okta_uid in req.body    | N/A             | Edits "completed_flashcards" field in the user_levels entry as specified by level_id and okta_uid                                                                                                                                      |
+| PUT   | levels/quiz/:levelID | level_id in params, and okta_uid in req.body | N/A             | Edits "completed_flashcards" field in the user_levels entry as specified by level_id and okta_uid |
 
 ### Levels Request and Response Body Examples
 
-- **/levels** GET all levels in database -> successful response example
+- **/levels** --- GET all levels in database -> successful response example
+
 ```
 [
     {
@@ -92,7 +103,8 @@ POST | /:oktaUID | array of level id's to add, okta_uid in params | N/A | Adds m
 ]
 ```
 
-- **/:oktaUID** GET all user levels for single user -> successful response example 
+- **/levels/:oktaUID** --- GET all user levels for single user -> successful response example
+
 ```
 [
     {
@@ -137,7 +149,9 @@ POST | /:oktaUID | array of level id's to add, okta_uid in params | N/A | Adds m
     }
 ]
 ```
-- **/levels/:oktaUID** POST missing levels to user account (assuming these levels are new to database) -> Successful response body example
+
+- **/levels/:oktaUID** --- POST missing levels to user account (assuming these levels are new to database) -> Successful response body example
+
 ```
 [
     {
@@ -183,11 +197,78 @@ POST | /:oktaUID | array of level id's to add, okta_uid in params | N/A | Adds m
 ]
 ```
 
+- **/flashcard/:levelID** --- PUT change completed_flashcard field to timestamp instead of null -> successful response example
+
+```
+    1
+```
+
+- **/exercise/:levelID** --- PUT change completed_flashcard field to timestamp instead of null -> successful response example
+
+```
+    1
+```
+
+- **/quiz/:levelID** --- PUT change completed_flashcard field to timestamp instead of null -> successful response example
+
+```
+    1
+```
+
+
+### Flashcards
+
+| Method | Endpoint  | Body/Params (required) | Body (optional) | Notes                                                   |
+| ------ | --------- | ---------------------- | --------------- | ------------------------------------------------------- |
+| GET    | /:levelID | level_id in params     | N/A             | Returns all the flashcards in the database by level_id. |
+
+### Flashcards Request and Response Body Examples for level_id 1
+
+- **/flashcards/:levelID** --- GET all flashcards in database -> successful response example
+
+```
+[     
+      {
+        id: 1,
+        level_id: 1,
+        sign: "A",
+        visual: "https://i.postimg.cc/8CfWd09K/A-big.png",
+      },
+      {
+        id: 2,
+        level_id: 1,
+        sign: "B",
+        visual: "https://i.postimg.cc/x14Mz2xN/B-big.png",
+      },
+      {
+        id: 3,
+        level_id: 1,
+        sign: "C",
+        visual: "https://i.postimg.cc/MTkB9Y8W/C-big.png",
+      },
+      {
+        id: 4,
+        level_id: 1,
+        sign: "D",
+        visual: "https://i.postimg.cc/bJQtW2z1/D-big.png",
+      },
+      {
+        id: 5,
+        level_id: 1,
+        sign: "E",
+        visual: "https://i.postimg.cc/gjmZWkJQ/E-big.png",
+      },
+]
+```
+
 ## Credits
+
 ### Project Manager
+
 [Michael Famurewa](https://github.com/viscountfam)
 
 ### Full Stack Devs
+
 [Jackson Ogles](https://github.com/cjogles) <br>
 [Natalia Beckstead](https://github.com/NataliaBeckstead) <br>
 [Bryan Bilek](https://github.com/bryanbilek) <br>
@@ -205,15 +286,14 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 
 ### Issue/Bug Request
 
- **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
 
- - As of 5-26-2020 all code is up to date and working 100%.
-
+- As of 5-26-2020 all code is up to date and working 100%.
 
 ### Feature Requests
 
- - Adding the ability to allow users to register/login via Google and Facebook.
- - Updating schema, I have provided a video and db design in the Signlingo channel.
+- Adding the ability to allow users to register/login via Google and Facebook.
+- Updating schema, I have provided a video and db design in the Signlingo channel.
 
 ### Pull Requests
 

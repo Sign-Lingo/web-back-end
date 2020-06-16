@@ -24,7 +24,7 @@ module.exports = {
         .then(trx.commit)
         .catch(trx.rollback);
     });
-  },z
+  },
   findByOktaUID(okta_uid) {
     return db("users").where("okta_uid", "=", okta_uid);
   },

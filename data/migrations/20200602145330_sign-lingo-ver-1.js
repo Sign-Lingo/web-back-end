@@ -46,9 +46,8 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists("exercises")
+  .dropTableIfExists("user_levels")
     .dropTableIfExists("flashcards")
-    .dropTableIfExists("user_levels")
     .dropTableIfExists("levels")
     .dropTableIfExists("users");
 };

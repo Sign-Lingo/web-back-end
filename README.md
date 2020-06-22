@@ -1,121 +1,282 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/9b3d0af20438824ee812/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/signlingo-be/maintainability)  [![Test Coverage](https://api.codeclimate.com/v1/badges/9b3d0af20438824ee812/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/signlingo-be/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9b3d0af20438824ee812/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/signlingo-be/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/9b3d0af20438824ee812/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/signlingo-be/test_coverage)
 
-# API Documentation
+# Sign Lingo
 
-#### Backend deployed at [Heroku](https://signlingo-staging.herokuapp.com/) <br>
+## Table of Contents
 
-### Backend framework goes here
+- **[Overview](#overview)**<br>
+- **[API Endpoints](#api-endpoints)**<br>
+- **[Credits](#credits)**<br>
 
--    Express and Knex: These frameworks compliment each other well and make the management of the database schema simple.
--    jwt: While not the most secure method for handling identity, attempts to implement third party authentication have not been successful through out the development of the Backend. So for RC1 jwt is the only method for registering and authentication.
+## <a name='overview'></a>Overview
 
+This database allows users to login, register, and participate in american sign language flashcard lessons, exercises, and quizzes. Currently the only levels available are for the alphabet. <br><br> **Note** <br>If you are going to change the database and push those changes to master, remember to run the following commands in the heroku console: <br> **knex migrate:rollback** <br> **knex migrate:latest** <br> **knex seed:run** <br> You need the seeds ran especially because we store level information here.
 
-#### Organization Routes
+- Type **yarn install** to download all deps<br>
+- Type **nodemon index.js** to continously run dev env server (you will need to have nodemon installed globally -> "**npm install -g nodemon**"), we were having problems running nodemon locally<br>
+- Back end is deployed to production (even thought it says staging in the name) at [Heroku](https://signlingo-staging.herokuapp.com/) <br>
+- Data Base Schema is here: [DB SCHEMA](https://dbdesigner.page.link/iEg1SoCNyGXD7KEt6)<br>
 
-| Method | Endpoint                | Access Control | Description                                  |
-| ------ | ----------------------- | -------------- | -------------------------------------------- |
-| ---    | #Level 1--------------- | ---------      | -------------------------------------------- |
-| GET    | `/api/level_1/info/:id` | all users      | Returns the information for a user. |
-| GET    | `/api/asl/AtoE` | all users      | Returns the letters with ASL sign image for AtoE |
-| PUT    | `/api/level_1/update/:id` | owners         | Modify an existing user.             |
-| ---    | #Level 2--------------- | ---------      | -------------------------------------------- |
-| GET    | `/api/level_2/info/:id` | all users      | Returns the information for a user. |
-| GET    | `/api/asl/FtoJ` | all users      | Returns the letters with ASL sign image for FtoJ |
-| PUT    | `/api/level_2/update/:id` | owners         | Modify an existing user.             |
-| ---    | #Level 3--------------- | ---------      | -------------------------------------------- |
-| GET    | `/api/level_3/info/:id` | all users      | Returns the information for a user. |
-| GET    | `/api/asl/KtoO` | all users      | Returns the letters with ASL sign image for KtoO |
-| PUT    | `/api/level_3/update/:id` | owners         | Modify an existing user.             |
-| ---    | #Level 4--------------- | ---------      | -------------------------------------------- |
-| GET    | `/api/level_4/info/:id` | all users      | Returns the information for a user. |
-| GET    | `/api/aslPtoT` | all users      | Returns the letters with ASL sign image for PtoT |
-| PUT    | `/api/level_4/update/:id` | owners         | Modify an existing user.             |
-| ---    | #Level 5--------------- | ---------      | -------------------------------------------- |
-| GET    | `/api/level_5/info/:id` | all users      | Returns the information for a user. |
-| GET    | `/api/asl/UtoZ` | all users      | Returns the letters with ASL sign image for UtoZ |
-| PUT    | `/api/level_5/update/:id` | owners         | Modify an existing user.             |
+## API Endpoints
 
-#### User Routes
+### Authentication
 
-| Method | Endpoint                | Access Control      | Description                                        |
-| ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| POST    | `/api/auth/register`        | none | Creates a new user account using jwt                    |
-| POST   | `/api/auth/login` | none                | Verifies user identity an logs user in. |
-|                                                    |
+| Method | Endpoint     | Body/Params (required) | Body (optional) | Notes                                                                                                                      |
+| ------ | ------------ | ---------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| POST   | /user/signup | okta access token      | N/A             | Finds user in database via okta_uid, or adds them to the database and initializes their levels. Returns the users okta_uid |
 
-# Data Model
+### Authentication Request and Response Body Examples
 
-
-#### 2️⃣ USER
-
----
+- **/user/signup** --- POST user request body example (okta access token)
 
 ```
 {
-  id: UUID
-  email: STRING
-  passowrd: STRING
+    "accessToken": {
+        "value": "eyJraWQiOiJsaThvR2dYNUNiTXQtcjdCb2ZvQkZUNEY2YlhXNUxyY1hkckRydFd2ME93IiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULlhyVzBOWGlTYXo3TkdFRkxYLWYtWFpJdThtUy0xUHJ3YkxZQVZkS0ctSUUiLCJpc3MiOiJodHRwczovL2Rldi0xMDcyODkub2t0YS5jb20vb2F1dGgyL2RlZmF1bHQiLCJhdWQiOiJhcGk6Ly9kZWZhdWx0IiwiaWF0IjoxNTkxOTgyODIxLCJleHAiOjE1OTE5ODY0MjEsImNpZCI6IjBvYWVudG92bUMyemtZeUZaNHg2IiwidWlkIjoiMDB1ZTc4ZWw0T2ZjNEg0N3A0eDYiLCJzY3AiOlsiZW1haWwiLCJwcm9maWxlIiwib3BlbmlkIl0sInN1YiI6ImphY2tzb24ub2dsZXMyOEBnbWFpbC5jb20ifQ.nPiPx5p80dFJpQGLLqGrvALS3qKefuta8wWYpjYBxA0bm_qLICgebJe2jgJxx90LcYMHM6UDvz6DFgBz6JXv38qchY-Mk-rraOAltwL9__o4sN1UU4IoB3_3a5xv5w-ffXqY87zypAXzejGZKHcy7CRurgkMM6J232XN08p8GktG3H1cUf23vJKFsnsPyU5kpEf9CJVwWgluA8ca3Nsuwovfg4cJq5U_FhYHt5OxOOAQe9pKPseKEnfOnMsldqRkcbSsNOony1IYbqzuZMcg40OMLDuifGFGs4AS9inW9Tr8DC6C-EcYJXmwtz6TQDOtMcysis9m4VA1xeCaGNw42g",
+        "accessToken": "eyJraWQiOiJsaThvR2dYNUNiTXQtcjdCb2ZvQkZUNEY2YlhXNUxyY1hkckRydFd2ME93IiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULlhyVzBOWGlTYXo3TkdFRkxYLWYtWFpJdThtUy0xUHJ3YkxZQVZkS0ctSUUiLCJpc3MiOiJodHRwczovL2Rldi0xMDcyODkub2t0YS5jb20vb2F1dGgyL2RlZmF1bHQiLCJhdWQiOiJhcGk6Ly9kZWZhdWx0IiwiaWF0IjoxNTkxOTgyODIxLCJleHAiOjE1OTE5ODY0MjEsImNpZCI6IjBvYWVudG92bUMyemtZeUZaNHg2IiwidWlkIjoiMDB1ZTc4ZWw0T2ZjNEg0N3A0eDYiLCJzY3AiOlsiZW1haWwiLCJwcm9maWxlIiwib3BlbmlkIl0sInN1YiI6ImphY2tzb24ub2dsZXMyOEBnbWFpbC5jb20ifQ.nPiPx5p80dFJpQGLLqGrvALS3qKefuta8wWYpjYBxA0bm_qLICgebJe2jgJxx90LcYMHM6UDvz6DFgBz6JXv38qchY-Mk-rraOAltwL9__o4sN1UU4IoB3_3a5xv5w-ffXqY87zypAXzejGZKHcy7CRurgkMM6J232XN08p8GktG3H1cUf23vJKFsnsPyU5kpEf9CJVwWgluA8ca3Nsuwovfg4cJq5U_FhYHt5OxOOAQe9pKPseKEnfOnMsldqRkcbSsNOony1IYbqzuZMcg40OMLDuifGFGs4AS9inW9Tr8DC6C-EcYJXmwtz6TQDOtMcysis9m4VA1xeCaGNw42g",
+        "expiresAt": 1591986423,
+        "tokenType": "Bearer",
+        "scopes": [
+            "openid",
+            "profile",
+            "email"
+        ],
+        "authorizeUrl": "https://dev-107289.okta.com/oauth2/default/v1/authorize",
+        "userinfoUrl": "https://dev-107289.okta.com/oauth2/default/v1/userinfo"
+    }
 }
 ```
 
-#### 2️⃣ Users Levels
-
----
+- **/user/signup** --- POST user successful LOGIN response example
 
 ```
 {
-    "id": "integer",
-    "User_ID": "integer foreign key in USER table",
-    "Level": "integer,
-    "Lesson": "boolean",
-    "Practice": "boolean",
-    "Quiz": "boolean",
-    "Active": "boolean",
-    "signs": "string"
+    "foundUser": true,
+    "userFound": "Found the user already in users table",
+    "foundit": [
+        {
+            "id": 7,
+            "okta_uid": "00ue78el4Ofc4H47p4x6"
+        }
+    ],
+    "okta_uid": "00ue78el4Ofc4H47p4x6"
 }
 ```
 
-## 2️⃣ Actions
+### Levels
 
-Auth Models
+| Method | Endpoint  | Body/Params (required)                         | Body (optional) | Notes                                                                                                                                                                                                                      |
+| ------ | --------- | ---------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET    | levels/   | N/A                                            | N/A             | Returns all the levels in the database.                                                                                                                                                                                    |
+| GET    | levels/:oktaUID | okta_uid in params                             | N/A             | Returns all user_level table data for a particular user via okta_uid passed as param.                                                                                                                                      |
+| POST   | levels/:oktaUID | array of level id's to add, okta_uid in params | N/A             | Adds missing levels to user account informed by levels ids inside levels array, and the okta_uid passed as params, this endpoint will only be reached if an old user logs in and is missing newly added levels in database |
+| PUT    | levels/flashcard/:levelID   | level_id in params, and okta_uid in req.body      | N/A        | Edits "completed_flashcards" field in the user_levels entry as specified by level_id and okta_uid                                                                                                                                                                                 |
+| PUT    | levels/exercise/:levelID | level_id in params, and okta_uid in req.body    | N/A             | Edits "completed_flashcards" field in the user_levels entry as specified by level_id and okta_uid                                                                                                                                      |
+| PUT   | levels/quiz/:levelID | level_id in params, and okta_uid in req.body | N/A             | Edits "completed_flashcards" field in the user_levels entry as specified by level_id and okta_uid |
 
-`add(user)` -> Adds user to the users table
+### Levels Request and Response Body Examples
 
-`findBy(filter)` -> Returns a user based on filter (email)
+- **/levels** --- GET all levels in database -> successful response example
 
-ASL Models
+```
+[
+    {
+        "id": 1,
+        "name": "ABCDE"
+    },
+    {
+        "id": 2,
+        "name": "FGHIJ"
+    },
+    {
+        "id": 3,
+        "name": "KLMNO"
+    },
+    {
+        "id": 4,
+        "name": "PQRST"
+    },
+    {
+        "id": 5,
+        "name": "UVWXYZ"
+    }
+]
+```
 
-`getAtoE()` -> Returns the ASL images and letters for A to E
+- **/levels/:oktaUID** --- GET all user levels for single user -> successful response example
 
-`getFtoJ()` -> Returns the ASL images and letters for F to J
+```
+[
+    {
+        "id": 4,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 1,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 5,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 2,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 6,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 5,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 7,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 3,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 8,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 4,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    }
+]
+```
 
-`getKtoO()` -> Returns the ASL images and letters for K to O
+- **/levels/:oktaUID** --- POST missing levels to user account (assuming these levels are new to database) -> Successful response body example
 
-`getPtoT()` -> Returns the ASL images and letters for P to T
+```
+[
+    {
+        "id": 24,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 1,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 25,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 2,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 26,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 3,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 27,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 4,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+    {
+        "id": 28,
+        "okta_uid": "00ue78el4Ofc4H47p4x6",
+        "level_id": 5,
+        "completed_flashcards": null,
+        "completed_exercises": null,
+        "completed_quiz": null
+    },
+]
+```
 
-`getUtoZ()` -> Returns the ASL images and letters for U to Z
+- **/flashcard/:levelID** --- PUT change completed_flashcard field to timestamp instead of null -> successful response example
 
-Levels Models
+```
+    1
+```
 
-`addUser(User_ID)` -> Adds user to all levels tables
+- **/exercise/:levelID** --- PUT change completed_flashcard field to timestamp instead of null -> successful response example
 
-`getUser(id)` -> Returns a single users information for specific levels
+```
+    1
+```
 
-`update(changes, id)` -> Updates the users progress in the level modules
+- **/quiz/:levelID** --- PUT change completed_flashcard field to timestamp instead of null -> successful response example
 
-<br>
-<br>
-<br>
+```
+    1
+```
+
+
+### Flashcards
+
+| Method | Endpoint  | Body/Params (required) | Body (optional) | Notes                                                   |
+| ------ | --------- | ---------------------- | --------------- | ------------------------------------------------------- |
+| GET    | /:levelID | level_id in params     | N/A             | Returns all the flashcards in the database by level_id. |
+
+### Flashcards Request and Response Body Examples for level_id 1
+
+- **/flashcards/:levelID** --- GET all flashcards in database -> successful response example
+
+```
+[     
+      {
+        id: 1,
+        level_id: 1,
+        sign: "A",
+        visual: "https://i.postimg.cc/8CfWd09K/A-big.png",
+      },
+      {
+        id: 2,
+        level_id: 1,
+        sign: "B",
+        visual: "https://i.postimg.cc/x14Mz2xN/B-big.png",
+      },
+      {
+        id: 3,
+        level_id: 1,
+        sign: "C",
+        visual: "https://i.postimg.cc/MTkB9Y8W/C-big.png",
+      },
+      {
+        id: 4,
+        level_id: 1,
+        sign: "D",
+        visual: "https://i.postimg.cc/bJQtW2z1/D-big.png",
+      },
+      {
+        id: 5,
+        level_id: 1,
+        sign: "E",
+        visual: "https://i.postimg.cc/gjmZWkJQ/E-big.png",
+      },
+]
+```
+
+## Credits
+
+### Project Manager
+
+[Michael Famurewa](https://github.com/viscountfam)
+
+### Full Stack Devs
+
+[Jackson Ogles](https://github.com/cjogles) <br>
+[Natalia Beckstead](https://github.com/NataliaBeckstead) <br>
+[Bryan Bilek](https://github.com/bryanbilek) <br>
+[Krisda Luengthada](https://github.com/biskoi) <br>
 
 ## Environment Variables
 
-DB_ENV = development
-
-JWT_SECRET
-
-PORT = 3300 //Local port can be set to anything
-
-SALT_ROUNDS
+ISSUER<br>
 
 ## Contributing
 
@@ -125,15 +286,14 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 
 ### Issue/Bug Request
 
- **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
 
- - As of 5-26-2020 all code is up to date and working 100%.
-
+- As of 5-26-2020 all code is up to date and working 100%.
 
 ### Feature Requests
 
- - Adding the ability to allow users to register/login via Google and Facebook.
- - Updating schema, I have provided a video and db design in the Signlingo channel.
+- Adding the ability to allow users to register/login via Google and Facebook.
+- Updating schema, I have provided a video and db design in the Signlingo channel.
 
 ### Pull Requests
 

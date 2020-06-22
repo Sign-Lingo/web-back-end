@@ -38,9 +38,9 @@ exports.up = function (knex) {
         .unsigned()
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      tbl.timestamp("completed_flashcards").defaultTo(null);
-      tbl.timestamp("completed_exercises").defaultTo(null);
-      tbl.timestamp("completed_quiz").defaultTo(null);
+      tbl.string("completed_flashcards").defaultTo(null);
+      tbl.string("completed_exercises").defaultTo(null);
+      tbl.string("completed_quiz").defaultTo(null);
     });
 };
 

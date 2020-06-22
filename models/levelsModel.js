@@ -24,7 +24,7 @@ module.exports = {
       level_id: levelID,
       okta_uid:  oktaUID
     }).update({
-      completed_flashcards: Date().toISOString(),
+      completed_flashcards: Date(),
     })
   },
   completeExercise(levelID, oktaUID) {
@@ -32,7 +32,7 @@ module.exports = {
       level_id: levelID,
       okta_uid:  oktaUID
     }).update({
-      completed_exercises: Date().toISOString(),
+      completed_exercises: Date(),
     })
   },
   completeQuiz(levelID, oktaUID) {
@@ -40,7 +40,7 @@ module.exports = {
       level_id: levelID,
       okta_uid:  oktaUID
     }).update({
-      completed_quiz: Date().toISOString(),
+      completed_quiz: Date(),
     })
   },
 };

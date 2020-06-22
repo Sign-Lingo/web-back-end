@@ -39,7 +39,7 @@ module.exports = {
 
   // this is jackson, I figured we can use the production env,
   // even though the heroku deployment is named signlingo-staging
-  // so I commented out the staging envionrment and am going straight to
+  // so I commented out the staging environment and am going straight to
   // production, it seemed appropriate in the scope of our app.. ? 
   
   // staging: {

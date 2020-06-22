@@ -49,7 +49,7 @@ router.put("/flashcard/:levelID", (req, res) => {
     res.status(200).json(completedFlashcard)
   })
   .catch(error => {
-    res.status(500).json("Error updating flashcard to completed timestamp status", error)
+    res.status(500).json("Error updating flashcard to completed timestamp status", error.message)
   })
 })
 
@@ -59,7 +59,7 @@ router.put("/exercise/:levelID", (req, res) => {
     res.status(200).json(completedExercise)
   })
   .catch(error => {
-    res.status(500).json("Error updating exercise to completed timestamp status", error)
+    res.status(500).json("Error updating exercise to completed timestamp status", error.message)
   })
 })
 
@@ -69,7 +69,7 @@ router.put("/quiz/:levelID", (req, res) => {
     res.status(200).json(completedQuiz)
   })
   .catch(error => {
-    res.status(500).json("Error updating quiz to completed timestamp status", error)
+    res.status(500).json("Error updating quiz to completed timestamp status", error.message)
   })
 })
 

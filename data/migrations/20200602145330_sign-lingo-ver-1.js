@@ -1,8 +1,12 @@
+// Link to DB Schema https://dbdesigner.page.link/iEg1SoCNyGXD7KEt6
+
 exports.up = function (knex) {
   return knex.schema
     .createTable("users", (tbl) => {
       tbl.increments();
-      tbl.string("okta_uid").unique().notNullable().index();
+      tbl.string("okta_uid").unique().notNullable().index();  
+      // using okta user ID to identify user, their email and 
+      // password are saved on the okta backend
     })
     .createTable("levels", (tbl) => {
       tbl.increments();
@@ -38,8 +42,8 @@ exports.up = function (knex) {
         .unsigned()
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      tbl.string("completed_flashcards").defaultTo(null);
-      tbl.string("completed_exercises").defaultTo(null);
+      tbl.string("completed_flashcards").defaultTo(null); // These fields will be holding Date() values as a string to stand in for a timestamp. 
+      tbl.string("completed_exercises").defaultTo(null); // To use these, do Date.parse(date) after retrieval from the database.
       tbl.string("completed_quiz").defaultTo(null);
     });
 };

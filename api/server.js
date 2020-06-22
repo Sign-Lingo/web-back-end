@@ -17,7 +17,7 @@ server.use("/levels", levelsRouter);
 server.use("/flashcards", flashcardsRouter);
 
 server.get("/", (req, res) => {
-  res.send("IT'S WORKING!!!");
+  res.status(200).send("IT'S WORKING!!!");
 });
 
 module.exports = server;

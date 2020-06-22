@@ -1,5 +1,7 @@
 const db = require("../data/dbconfig");
 
+// this function will add the newly registered user to the database (their okta_uid)
+// and will add all levels to their account via a transaction
 module.exports = {
   addUser(oktaUID) {
     return db.transaction((trx) => {

@@ -1,3 +1,6 @@
+// these tests are for the old implementation of the database
+// the database has now been refactored by Labs 24 Team. 
+
 /*
 **Contributors:
 **Seth Cox

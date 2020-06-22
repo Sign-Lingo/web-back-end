@@ -277,6 +277,7 @@ This database allows users to login, register, and participate in american sign 
 ## Environment Variables
 
 ISSUER<br>
+DB_ENV<br>
 
 ## Contributing
 

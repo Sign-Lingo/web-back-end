@@ -1,29 +1,25 @@
-/*
-**Contributors:
-**Seth Cox
-**David Isakson
-**April - May 2020
-*/
-require('dotenv').config();
-const jwt = require("jsonwebtoken"); // installed this
+const AuthModel = require("../models/authModel");
 
-//Restricts endpoints to logged in users
+// Restricts endpoints to users with okta_uid
 module.exports = (req, res, next) => {
-  const { authorization } = req.headers;
-
-  if (authorization) {
-    const secret = process.env.JWT_SECRET;
-
-      if (err) {
-        res.status(401).json({ message: "Invalid Token" });
-      } else {
-        req.token = decodedToken;
-  User.findByUID(req.body)
-
-        next();
-      }
-    });
-  } else {
-    res.status(400).json({ message: "Please login and try again" });
+  let uid;
+  if (req.body.oktaUID) {
+    uid = req.body.oktaUID;
+  } else if (req.params.oktaUID) {
+    uid = req.params.oktaUID;
   }
+
+  if (uid) {
+    AuthModel.findByOktaUID(uid)
+      .then(valid => {
+        if (valid.length !== 0) {
+          next();
+        } else {
+          res.status(400).json({ message: "Please login and try again, bad okta_uid" })
+        }
+      })
+      .catch(err => {
+        res.status(500).json({ message: "Error searching for oktaUID in database" })
+      });
+    }
 };

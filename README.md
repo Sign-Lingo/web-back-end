@@ -10,7 +10,7 @@
 
 ## <a name='overview'></a>Overview
 
-This database allows users to login, register, and participate in american sign language flashcard lessons, exercises, and quizzes. Currently the only levels available are for the alphabet. <br>
+This database allows users to login, register, and participate in american sign language flashcard lessons, exercises, and quizzes. Currently the only levels available are for the alphabet. <br><br> **Note** <br>If you are going to change the database and push those changes to master, remember to run the following commands in the heroku console: <br> **knex migrate:rollback** <br> **knex migrate:latest** <br> **knex seed:run** <br> You need the seeds ran especially because we store level information here.
 
 - Type **yarn install** to download all deps<br>
 - Type **nodemon index.js** to continously run dev env server (you will need to have nodemon installed globally -> "**npm install -g nodemon**"), we were having problems running nodemon locally<br>
